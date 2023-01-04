@@ -72,11 +72,16 @@ export default function ParkingArea() {
     index
   }
 
-  const indexOfParking = parkingAreaName.indexOf(props.index)
+  // const indexOfParking = parkingAreaName.indexOf(props.index)
 
-  // const [indexOfParking,setIndexOfparking] = React.useState(0)
+  const [indexOfParking,setIndexOfparking] = React.useState(0)
+  useEffect(() => {
+    const getData = () => {
+      props.index ? setIndexOfparking(parkingAreaName.indexOf(props.index)) : setIndexOfparking(0)
+    };
+    getData();
+  },[]);
 
-// {props.index ? setIndexOfparking(parkingAreaName.indexOf(props.index)) : setIndexOfparking(0) }
   const handleChangeFilterActive = (event) => {
     setFilterActive(event.target.value);
   };

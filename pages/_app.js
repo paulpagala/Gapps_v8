@@ -27,24 +27,24 @@ function MyApp({ Component, pageProps }) {
  const [checkInAndOutRestriction, setCheckInAndOutRestriction] = useState(false);
  const [dailyCheckInRestriction, setDailyCheckInRestriction] = useState('');
  const [dailyCheckInAndOutRestriction, setDailyCheckInAndOutRestriction] = useState('');
- const [parkingAreaName, setParkingAreaName] = useState([])
- const [parkingAreaAddress , setParkingAreaAddress ] = useState([]) 
- const [parkingAreaFloor, setParkingAreaFloor] = useState([])
- const [parkingAreaSlots, setParkingAreaSlots] = useState([])
- const [parkingSlotNames, setParkingSlotNames] = useState([])
+ const [parkingAreaName, setParkingAreaName] = useState(["paul"])
+ const [parkingAreaAddress , setParkingAreaAddress ] = useState(["hello"]) 
+ const [parkingAreaFloor, setParkingAreaFloor] = useState([["p1"]])
+ const [parkingAreaSlots, setParkingAreaSlots] = useState([["1"]])
+ const [parkingSlotNames, setParkingSlotNames] = useState([[["parking1"]]])
  const [paidAmount, setPaidAmount] = useState('')
  const [gcashNumber, setGcashNumber] = useState('')
  const [paymentRestriction, setPaymentRestriction] = useState('')
  const [cancellationRestriction, setCancellationRestriction] = useState('')
  const [earliestDateRestriction, setEarliestDateRestriction] = useState('') 
- const [calendarRestriction, setCalendarRestriction] = useState([])
+ const [calendarRestriction, setCalendarRestriction] = useState(["Monday"])
  const [RTE,setRTE] = useState('')
- const [bookingStart, setBookingStart] = useState([])
- const [bookingEnd, setBookingEnd] = useState([])
- const [SSOuser, setSSOuser] = useState(null)
+ const [bookingStart, setBookingStart] = useState([0])
+ const [bookingEnd, setBookingEnd] = useState([2])
+ const [SSOuser, setSSOuser] = useState('')
  const [parkingStatus,setParkingStatus] = useState(false)
 
-
+console.log(parkingAreaName,parkingAreaAddress,parkingAreaFloor,parkingAreaSlots,parkingSlotNames,calendarRestriction,bookingStart,bookingEnd)
   
 
   return (

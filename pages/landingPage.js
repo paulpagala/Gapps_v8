@@ -26,17 +26,17 @@ export default function ImgMediaCard() {
     router.push("/setupChecklist")
   }
 
-  const { SSOuser, setSSOuser } = useGlobalContext();
+  const { SSOuser} = useGlobalContext();
 
-  if (!SSOuser) {
-    return <Backdrop
-      sx={{ color: 'white', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={true}
-    // onClick={handleClose}
-    >
-      <CircularProgress color="inherit" />
-    </Backdrop>
-  }
+  // if (!SSOuser) {
+  //   return <Backdrop
+  //     sx={{ color: 'white', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+  //     open={true}
+  //   // onClick={handleClose}
+  //   >
+  //     <CircularProgress color="inherit" />
+  //   </Backdrop>
+  // }
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: '15%' }}>
