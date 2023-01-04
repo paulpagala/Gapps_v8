@@ -25,13 +25,22 @@ import TextField from '@mui/material/TextField';
 import MUIRichTextEditor from "mui-rte";
 // import { convertToRaw } from 'draft-js'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import success_logo_source from "../public/success-svgrepo-com.svg";
+import question_logo_source from "../public/question.svg";
+import Image from 'next/image'
 
 
 export default function EditReview() {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const { paidAmount, gcashNumber, paymentRestriction, cancellationRestriction, earliestDateRestriction, RTE, calendarRestriction, parkingAreaName } = useGlobalContext()
-    const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE } = useGlobalContext()
+    const { paidAmount, gcashNumber, paymentRestriction, cancellationRestriction, earliestDateRestriction, RTE, calendarRestriction, parkingAreaName,setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE  } = useGlobalContext()
+    // const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE } = useGlobalContext()
 
     // amount to be paid
     const [value, setValue] = React.useState('');
@@ -166,6 +175,18 @@ export default function EditReview() {
             }
         }
     });
+
+    const [openModal, setOpenModal] = React.useState(false)
+    function clickModal() {
+        setOpenModal(true)
+    }
+    const handleClose = () => {
+        setOpenModal(false);
+    };
+    const [openCheckedModal, setOpenCheckedModal] = React.useState(false)
+    function proceedStatus() {
+        setOpenCheckedModal(true)
+    }
     const week = [1, 2, 3, 4, 5]
     async function patchServiceSetting(url = '', data = {}) {
         // Default options are marked with *
@@ -228,7 +249,7 @@ export default function EditReview() {
             ))))))
         }
 
-        if (costOfServiceBooking === "Paid") {
+        else if (costOfServiceBooking === "Paid") {
             week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
                 patchServiceSetting('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
                     {
@@ -299,19 +320,11 @@ export default function EditReview() {
         setCancellationRestriction(cancelDeadline)
         setEarliestDateRestriction(earliestBook)
         setRTE(valueRTE)
+        setOpenModal(false)
+        setOpenCheckedModal(false)
 
     }
-    const [openModal, setOpenModal] = React.useState(false)
-    function clickModal() {
-        setOpenModal(true)
-    }
-    const handleClose = () => {
-        setOpenModal(false);
-    };
-    const [openCheckedModal, setOpenCheckedModal] = React.useState(false)
-    function proceedStatus() {
-        setOpenCheckedModal(true)
-    }
+   
 
 
     return (
