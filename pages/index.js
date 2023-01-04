@@ -34,9 +34,10 @@ const {setSSOuser} = useGlobalContext();
   
   const handleClick = (e) => {
     e.preventDefault()
+    router.push('/landingPage')
     signInWithRedirect(auth, provider)
     
-    router.push('/landingPage')
+    
     
   }
   
