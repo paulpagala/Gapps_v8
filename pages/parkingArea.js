@@ -74,7 +74,9 @@ export default function ParkingArea() {
 
   const indexOfParking = parkingAreaName.indexOf(props.index)
 
+  // const [indexOfParking,setIndexOfparking] = React.useState(0)
 
+// {props.index ? setIndexOfparking(parkingAreaName.indexOf(props.index)) : setIndexOfparking(0) }
   const handleChangeFilterActive = (event) => {
     setFilterActive(event.target.value);
   };
@@ -167,8 +169,15 @@ export default function ParkingArea() {
 
   const parkingSlot = parkingAreaSlots[indexOfParking]
 
-  const totalSlots = parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)
+  
 
+  // const [totalSlots, setTotalSlots] = React.useState(0)
+  // {(typeof (parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) !== 'undefined')? setTotalSlots(parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}
+  // if(parkingSlot.length >0){
+    const totalSlots = parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0) 
+  // }
+
+  
   const slotStatus = []
   for (let i = 0; i < ((totalSlots) - (slotApi)); i++) {
     // Add each number to the array

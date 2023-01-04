@@ -45,7 +45,8 @@ export default function EditReview() {
     // const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE } = useGlobalContext()
 
     // amount to be paid
-    const [value, setValue] = React.useState('');
+    // const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState(paidAmount);
     const [error, setError] = React.useState(false);
     const handleChange = event => {
         setValue(event.target.value);
@@ -59,7 +60,8 @@ export default function EditReview() {
 
     //phone number
     const phoneRegex = /^(09|\+639)\d{9}$/
-    const [phoneNumber, setPhoneNumber] = React.useState('');
+    // const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [phoneNumber, setPhoneNumber] = React.useState(gcashNumber);
     const [errorPhoneNumber, setErrorPhoneNumber] = React.useState(false);
 
     const handleChangeNumber = (event) => {
@@ -72,14 +74,16 @@ export default function EditReview() {
         }
     };
 
-    const [costOfServiceBooking, setcostOfServiceBooking] = React.useState('');
+    // const [costOfServiceBooking, setcostOfServiceBooking] = React.useState('');
+    const [costOfServiceBooking, setcostOfServiceBooking] = React.useState(paymentRestriction);
 
     const handleChangeCostOfServiceBooking = (event) => {
         setcostOfServiceBooking(event.target.value);
         // setPaymentRestriction(event.target.value)
     };
 
-    const [cancelDeadline, setCancelDeadline] = React.useState('');
+    // const [cancelDeadline, setCancelDeadline] = React.useState('');
+    const [cancelDeadline, setCancelDeadline] = React.useState(cancellationRestriction);
     const [errorCancellationDeadline, setErrorCancellationDeadline] = React.useState('');
 
     const handleChangeCancelDeadline = (event) => {
@@ -93,7 +97,8 @@ export default function EditReview() {
         }
     };
 
-    const [earliestBook, setEarliestBook] = React.useState('');
+    // const [earliestBook, setEarliestBook] = React.useState('');
+    const [earliestBook, setEarliestBook] = React.useState(earliestDateRestriction);
     const [errorEarliestDate, setErrorEarliestDate] = React.useState('');
 
 
@@ -112,7 +117,8 @@ export default function EditReview() {
         console.log(data);
     };
 
-    const [valueRTE, setValueRTE] = React.useState("");
+    // const [valueRTE, setValueRTE] = React.useState("");
+    const [valueRTE, setValueRTE] = React.useState(RTE);
 
     const handleChangeRTE = (event) => {
         const plainText = event.getCurrentContent().getPlainText() // for plain text

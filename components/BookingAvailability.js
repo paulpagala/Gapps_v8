@@ -15,13 +15,13 @@ const BookingAvailability = props => {
   const {bookingStart,setBookingStart,bookingEnd,setBookingEnd} = useGlobalContext();
 
 
-  const [bookingScheduleStart, setBookingScheduleStart] = React.useState('');
+  const [bookingScheduleStart, setBookingScheduleStart] = React.useState(bookingStart);
   const handleChangeBookingScheduleStart = (event) => {
     setBookingScheduleStart(event.target.value);
     setBookingStart([...bookingStart,event.target.value])
   };
 
-  const [bookingScheduleEnd, setBookingScheduleEnd] = React.useState('');
+  const [bookingScheduleEnd, setBookingScheduleEnd] = React.useState(bookingEnd);
   const handleChangeBookingScheduleEnd = (event) => {
     setBookingScheduleEnd(event.target.value);
     setBookingEnd([...bookingEnd,event.target.value])

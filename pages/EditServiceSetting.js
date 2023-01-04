@@ -57,20 +57,23 @@ export default function EditServiceSetting() {
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const { checkInOptions, checkInRestriction, checkInAndOutRestriction, dailyCheckInRestriction, dailyCheckInAndOutRestriction, calendarRestriction, parkingAreaName, setCheckInOptions, setCheckInRestriction, setCheckInAndOutRestriction, setDailyCheckInRestriction, setDailyCheckInAndOutRestriction } = useGlobalContext();
 
-    const [weekday, setWeekday] = React.useState([]);
+    // const [weekday, setWeekday] = React.useState([]);
+    const [weekday, setWeekday] = React.useState(calendarRestriction);
     const handleWeekday = (event, newWeekday) => {
         setWeekday(newWeekday);
         //   setCalendarRestriction(newWeekday)
     };
 
 
-    const [checkIn, setCheckIn] = React.useState(false);
+    // const [checkIn, setCheckIn] = React.useState(false);
+    const [checkIn, setCheckIn] = React.useState(checkInRestriction);
     const handleChangeCheckIn = (event) => {
         setCheckIn(event.target.checked);
         //   setCheckInRestriction(event.target.checked)
     };
 
-    const [checkInAndOut, setCheckInAndOut] = React.useState(false);
+    // const [checkInAndOut, setCheckInAndOut] = React.useState(false);
+    const [checkInAndOut, setCheckInAndOut] = React.useState(checkInAndOutRestriction);
     const handleChangeCheckInAndOut = (event) => {
         setCheckInAndOut(event.target.checked);
         //   setCheckInAndOutRestriction(event.target.checked);
@@ -78,19 +81,21 @@ export default function EditServiceSetting() {
 
 
 
-    const [latestBookingScheduleCheckIn, setLatestBookingScheduleCheckIn] = React.useState();
+    // const [latestBookingScheduleCheckIn, setLatestBookingScheduleCheckIn] = React.useState();
+    const [latestBookingScheduleCheckIn, setLatestBookingScheduleCheckIn] = React.useState(dailyCheckInRestriction);
     const handleChangeLatestBookingScheduleCheckIn = (event) => {
         setLatestBookingScheduleCheckIn(event.target.value);
         //   setDailyCheckInRestriction(event.target.value)
     };
 
-    const [latestBookingScheduleCheckInAndOut, setLatestBookingScheduleCheckInAndOut] = React.useState();
+    const [latestBookingScheduleCheckInAndOut, setLatestBookingScheduleCheckInAndOut] = React.useState(dailyCheckInAndOutRestriction);
     const handleChangeLatestBookingScheduleCheckInAndOut = (event) => {
         setLatestBookingScheduleCheckInAndOut(event.target.value);
         //   setDailyCheckInAndOutRestriction(event.target.value);
     };
 
-    const [serviceFee, setServiceFee] = React.useState('');
+    // const [serviceFee, setServiceFee] = React.useState('');
+    const [serviceFee, setServiceFee] = React.useState(checkInOptions);
     const handleChangeServiceFee = (event) => {
         setServiceFee(event.target.value);
         //   setCheckInOptions(event.target.value)
