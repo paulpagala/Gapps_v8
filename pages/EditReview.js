@@ -34,9 +34,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import success_logo_source from "../public/success-svgrepo-com.svg";
 import question_logo_source from "../public/question.svg";
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 
 export default function EditReview() {
+    const router = useRouter();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const { paidAmount, gcashNumber, paymentRestriction, cancellationRestriction, earliestDateRestriction, RTE, calendarRestriction, parkingAreaName,setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE  } = useGlobalContext()
@@ -186,6 +188,7 @@ export default function EditReview() {
     const [openCheckedModal, setOpenCheckedModal] = React.useState(false)
     function proceedStatus() {
         setOpenCheckedModal(true)
+        router.push('/parkingDashboard')
     }
     const week = [1, 2, 3, 4, 5]
     async function patchServiceSetting(url = '', data = {}) {

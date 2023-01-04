@@ -30,6 +30,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image'
 import InputLabel from '@mui/material/InputLabel';
+import { useRouter } from 'next/router'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     '& .MuiToggleButtonGroup-grouped': {
@@ -51,6 +52,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     },
 }));
 export default function EditServiceSetting() {
+    const router = useRouter()
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const { checkInOptions, checkInRestriction, checkInAndOutRestriction, dailyCheckInRestriction, dailyCheckInAndOutRestriction, calendarRestriction, parkingAreaName, setCheckInOptions, setCheckInRestriction, setCheckInAndOutRestriction, setDailyCheckInRestriction, setDailyCheckInAndOutRestriction } = useGlobalContext();
@@ -217,6 +219,7 @@ export default function EditServiceSetting() {
     const [openCheckedModal, setOpenCheckedModal] = React.useState(false)
     function proceedStatus() {
         setOpenCheckedModal(true)
+        router.push('/parkingDashboard')
     }
 
 
