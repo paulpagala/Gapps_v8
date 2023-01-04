@@ -31,12 +31,25 @@ const provider = new GoogleAuthProvider(app);
 const {setSSOuser} = useGlobalContext();
 
   const router = useRouter()
+
+  const functionOne = async () => {
+    // Do something
+    signInWithRedirect(auth, provider)
+  }
+
+  const functionTwo = async () => {
+    // Do something else
+    router.push('/landingPage')
+
+  }
   
-  const handleClick = () => {
+  const handleClick = async () => {
     // e.preventDefault()
     // router.push('/landingPage')
-    signInWithRedirect(auth, provider)
-    router.push('/landingPage')
+    await functionOne()
+    await functionTwo()
+    
+    
 
     
     
