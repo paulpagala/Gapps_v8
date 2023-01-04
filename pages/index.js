@@ -46,8 +46,9 @@ const {setSSOuser} = useGlobalContext();
   const handleClick = async () => {
     // e.preventDefault()
     // router.push('/landingPage')
-    await functionOne()
     await functionTwo()
+    await functionOne()
+   
     
     
 
