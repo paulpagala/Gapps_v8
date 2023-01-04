@@ -23,7 +23,7 @@ import { useGlobalContext } from '../context/global';
 
 
 export default function PrimarySearchAppBar() {
-  const {SSOuser} = useGlobalContext();
+  const { SSOuser } = useGlobalContext();
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -123,16 +123,16 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className = "AppBar">
+      <AppBar position="static" className="AppBar">
         <Toolbar>
-          <img 
-            src= "GAccess-colored.png"
-            alt = "GAccess logo"
+          <img
+            src="GAccess-colored.png"
+            alt="GAccess logo"
             className='GAccess'
-            />
-          <Box sx={{ flexGrow: 1  }} /> 
-          <Box  sx={{ display: { xs: 'none', md: 'flex' } }}>
-          {/* <IconButton
+          />
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -141,22 +141,22 @@ export default function PrimarySearchAppBar() {
           >
             <SettingsIcon  sx={{ color: 'black', fontSize: 50, mt:0.5,mr:3}}/>
           </IconButton> */}
-          {/* <IconButton size="large" aria-label="Application Icons" color="inherit">
+            {/* <IconButton size="large" aria-label="Application Icons" color="inherit">
             <AppsIcon sx={{ color: 'black', fontSize: 50, mt:0.5,mr:3 }}/>
           </IconButton> */}
-          <div>
-            {/* placeholder for now until we do the sso */}
-            <p style={{color: '#030303',top:10, fontSize:18, textAlign:'right',position:'relative'}}>
-            {SSOuser}
-            </p>
-            <p style={{color: '#848484', top:-10, fontSize:14, textAlign:'right',position:'relative'}}>
-              Service Admin
-            </p>
-          </div>
-       
-              
-            <AccountCircle  sx={{ color: 'black', fontSize: 50, mt:"8%",mr:3,ml:1 }}/>
-          
+            <div>
+              {/* placeholder for now until we do the sso */}
+              <p style={{ color: '#030303', top: 10, fontSize: 18, textAlign: 'right', position: 'relative' }}>
+                {SSOuser}
+              </p>
+              <p style={{ color: '#848484', top: -10, fontSize: 14, textAlign: 'right', position: 'relative' }}>
+                Service Admin
+              </p>
+            </div>
+
+
+            <AccountCircle sx={{ color: 'black', fontSize: 50, mt: "9%", mr: 3, ml: 1 }} />
+
           </Box>
           {/* <Box  sx={{ display: { xs: 'flex', md: 'none'  } }}>
             <IconButton
@@ -171,12 +171,12 @@ export default function PrimarySearchAppBar() {
             </IconButton>
            
           </Box> */}
-          <img 
-            src= "company-logo.png"
-            alt = "company logo"
+          <img
+            src="company-logo.png"
+            alt="company logo"
             className='company'
-            />
-          
+          />
+
         </Toolbar>
       </AppBar>
       {/* {renderMobileMenu} */}

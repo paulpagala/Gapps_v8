@@ -32,7 +32,7 @@ export default function PolicyDetails() {
   const handleChangeAddParking = (event) => {
     setAddParking(event.target.value);
     addParkingArea(),
-    addParkingFloor()
+      addParkingFloor()
   };
 
   const [parkingArea, setParkingArea] = React.useState([]);
@@ -271,7 +271,7 @@ export default function PolicyDetails() {
   // }
 
   let createParkingAreas = newParkingArea.map((indexParkingArea) => (
-    <Box sx={{ mb: "4%" }} key={indexParkingArea-1} >
+    <Box sx={{ mb: "4%" }} key={indexParkingArea - 1} >
       <Paper variant="outlined" sx={{ my: { md: 0, lg: 0 }, p: { md: 2, lg: 3 } }}>
         <Box sx={{ ml: 3 }}>
           <Typography variant="subtitle1" sx={{ color: 'black' }} gutterBottom> Parking area name </Typography>
@@ -397,7 +397,7 @@ export default function PolicyDetails() {
         </Box>
 
         {/* </Box> */}
-        <Button variant='text' sx={{ textDecoration: 'underline', ml:'2%' }} onClick={addParkingFloor}>
+        <Button variant='text' sx={{ textDecoration: 'underline', ml: '2%' }} onClick={addParkingFloor}>
           + Add another area floor
         </Button>
       </Paper>
@@ -428,7 +428,7 @@ export default function PolicyDetails() {
   // },[]);
 
 
-  
+
 
 
   return (
@@ -464,7 +464,7 @@ export default function PolicyDetails() {
 
 
 
-      {addParking === 'bulk' ?
+      {/* {addParking === 'bulk' ?
         (
           <Paper variant="outlined" sx={{ my: { md: 3, lg: 5 }, p: { md: 2, lg: 3 } }}>
             <Typography component="b1" variant="b1" sx={{ color: 'black' }} gutterBottom>
@@ -495,7 +495,7 @@ export default function PolicyDetails() {
 
           </Paper>)
         : null
-      }
+      } */}
       {addParking === "list" ? (<Button variant='text' sx={{ textDecoration: 'underline' }} onClick={addParkingArea}>
         + Add another parking area
       </Button>) : null}

@@ -28,6 +28,15 @@ export default function ImgMediaCard() {
 
   const { SSOuser, setSSOuser } = useGlobalContext();
 
+  if (!SSOuser) {
+    return <Backdrop
+      sx={{ color: 'white', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={true}
+    // onClick={handleClose}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  }
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: '15%' }}>
