@@ -25,12 +25,16 @@ import Popover from "@mui/material/Popover";
 import Image from 'next/image';
 import Link from 'next/link';
 // import RichTextEditor from "react-rte";
+import { EditorState } from 'draft-js';
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertToRaw } from 'draft-js'
 
 
 
 
 export default function AddressForm() {
-  const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE,RTE } = useGlobalContext()
+  const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE, RTE } = useGlobalContext()
 
   // amount to be paid
   const [value, setValue] = React.useState('');
@@ -190,7 +194,7 @@ export default function AddressForm() {
   const id = open ? "simple-popover" : undefined;
 
   // const toolbarConfig = {
-    
+
   //   // Optionally specify the groups to display (displayed in the order listed).
   //   display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
   //   INLINE_STYLE_BUTTONS: [
@@ -210,8 +214,16 @@ export default function AddressForm() {
   //   ]
   // }
 
-
-console.log(RTE)
+const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
+const handleEditorState = (e) => {
+  // const plainText = convertToRaw(e.getCurrentContent())
+  setEditorState(e);
+  setRTE(editorState.getCurrentContent().getPlainText())
+};
+  // console.log(RTE)
+  
+ 
+  
   return (
 
     <React.Fragment>
@@ -375,6 +387,13 @@ console.log(RTE)
               // toolbarConfig={toolbarConfig}
               className="editor"
               placeholder="Enter your text here..." /> */}
+            <Editor
+              editorState={editorState}
+              toolbarClassName="toolbarClassName"
+              wrapperClassName="wrapperClassName"
+              editorClassName="editorClassName"
+              onEditorStateChange={handleEditorState}
+            />
 
           </Box>
         </Box>
