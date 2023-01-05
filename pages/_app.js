@@ -40,8 +40,10 @@ function MyApp({ Component, pageProps }) {
  const [earliestDateRestriction, setEarliestDateRestriction] = useState('') 
  const [calendarRestriction, setCalendarRestriction] = useState(["Monday"])
  const [RTE,setRTE] = useState('')
- const [bookingStart, setBookingStart] = useState([0])
- const [bookingEnd, setBookingEnd] = useState([2])
+//  
+ const [bookingStart, setBookingStart] = useState([])
+ const [bookingEnd, setBookingEnd] = useState([])
+//  
  const [SSOuser, setSSOuser] = useState('')
  const [parkingStatus,setParkingStatus] = useState(false)
  const router = useRouter()
