@@ -123,7 +123,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box >
-      <AppBar className="AppBar">
+      <AppBar className="AppBar" sx={{background: 'white'}}>
         <Toolbar>
           <img
             src="GAccess-colored.png"
