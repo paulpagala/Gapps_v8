@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 // import useLocalStorage from '../hooks/useLocalStorage';
 import { useGlobalContext } from '../context/global';
 // import RichTextEditor from "react-rte";
-import MUIRichTextEditor from "mui-rte";
+// import MUIRichTextEditor from "mui-rte";
 // import { convertToRaw } from 'draft-js'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
