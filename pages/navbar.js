@@ -122,8 +122,8 @@ export default function PrimarySearchAppBar() {
   // );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className="AppBar">
+    <Box >
+      <AppBar className="AppBar">
         <Toolbar>
           <img
             src="GAccess-colored.png"
