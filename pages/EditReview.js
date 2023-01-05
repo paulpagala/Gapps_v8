@@ -41,7 +41,7 @@ export default function EditReview() {
     const router = useRouter();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const { paidAmount, gcashNumber, paymentRestriction, cancellationRestriction, earliestDateRestriction, RTE, calendarRestriction, parkingAreaName,setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE  } = useGlobalContext()
+    const { paidAmount, gcashNumber, paymentRestriction, cancellationRestriction, earliestDateRestriction, RTE, calendarRestriction, parkingAreaName, setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE } = useGlobalContext()
     // const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE } = useGlobalContext()
 
     // amount to be paid
@@ -59,19 +59,19 @@ export default function EditReview() {
     };
 
     //phone number
-    const phoneRegex = /^(09|\+639)\d{9}$/
+    // const phoneRegex = /^(09|\+639)\d{9}$/
     // const [phoneNumber, setPhoneNumber] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState(gcashNumber);
-    const [errorPhoneNumber, setErrorPhoneNumber] = React.useState(false);
+    // const [errorPhoneNumber, setErrorPhoneNumber] = React.useState(false);
 
     const handleChangeNumber = (event) => {
         setPhoneNumber(event.target.value);
         // setGcashNumber(event.target.value)
-        if (!phoneRegex.test(event.target.value)) {
-            setErrorPhoneNumber(true);
-        } else {
-            setErrorPhoneNumber(false);
-        }
+        // if (!phoneRegex.test(event.target.value)) {
+        //     setErrorPhoneNumber(true);
+        // } else {
+        //     setErrorPhoneNumber(false);
+        // }
     };
 
     // const [costOfServiceBooking, setcostOfServiceBooking] = React.useState('');
@@ -283,7 +283,7 @@ export default function EditReview() {
                     {
                         "parkingArea": parkingArea,
                         "calendarRestriction": day + week,
-                        "updateKey": "gcashNumber",
+                        "updateKey": "public-key",
                         "updateValue": phoneNumber
                     })
                     .then((data) => {
@@ -332,7 +332,20 @@ export default function EditReview() {
         setOpenCheckedModal(false)
         router.push('/parkingDashboard')
     }
-   
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClosePopOver = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? "simple-popover" : undefined;
+
 
 
     return (
@@ -366,13 +379,39 @@ export default function EditReview() {
 
                     {costOfServiceBooking === 'Paid' ?
                         (<Paper variant="outlined" sx={{ mr: 10, ml: 10, my: { md: 3, lg: 5 }, p: { md: 2, lg: 3 }, backgroundColor: '#FAFAFA' }}>
-                            <Box>
+                            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                 <Typography component="b1" variant="b1" sx={{ color: 'black' }} gutterBottom>
                                     Booking Price
                                 </Typography>
                                 <Typography component="b1" variant="b1" sx={{ color: 'black', ml: 26 }} gutterBottom>
                                     Receiving GCash number wallet
                                 </Typography>
+                                <IconButton aria-describedby={id} onClick={handleClick}>
+                                    <HelpIcon sx={{ color: '#1D64D8', mt: -1 }} />
+                                </IconButton>
+                                <Popover
+                                    id={id}
+                                    open={open}
+                                    anchorEl={anchorEl}
+                                    onClose={handleClosePopOver}
+                                    anchorOrigin={{
+                                        vertical: "bottom",
+                                        horizontal: "right"
+                                    }}
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "center"
+                                    }}
+                                >
+                                    <Box sx={{ height: 500, width: 500, background: '#1D64D8', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                        <Typography sx={{ fontSize: 17, mt: 2 }}>What is GCash's Getpaid Payment Portal?</Typography>
+                                        <ul>
+                                            <li><Typography sx={{ p: 1, fontSize: 17 }}>This is a tool to equip businesses to receive GCash payments from customers. You will need to sign up for an account here to connect it to your GAccess service.</Typography></li>
+                                            <li><Typography sx={{ p: 1, fontSize: 17 }}>On your account, go to the Integration tab to copy the public key.</Typography></li>
+                                        </ul>
+                                        {/* <Image src={question_logo_source} alt="question_logo" width={135} height={135} /> */}
+                                    </Box>
+                                </Popover>
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <FormControl>
@@ -396,8 +435,8 @@ export default function EditReview() {
                                         value={phoneNumber}
                                         variant="outlined"
                                         onChange={handleChangeNumber}
-                                        error={errorPhoneNumber}
-                                        helperText={errorPhoneNumber ? 'Please enter a valid phone number' : ''}
+                                        // error={errorPhoneNumber}
+                                        // helperText={errorPhoneNumber ? 'Please enter a valid phone number' : ''}
                                         placeholder="Enter GCash number"
                                         InputProps={{ min: 0 }}
                                     />

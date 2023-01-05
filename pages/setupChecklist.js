@@ -120,7 +120,7 @@ week.map((week,weekIndex)=>(calendarRestriction.map((day,dayIndex)=>(parkingArea
       "slots": parseInt(parkingAreaSlots[index].reduce((accumulator,currentValue)=>accumulator + parseInt(currentValue, 10), 0)),
       "paymentRestriction" : paymentRestriction,
       "paymentAmount": paidAmount,
-      "gcashNumber": gcashNumber,
+      "public-key": gcashNumber,
       "cancellationRestriction" : cancellationRestriction,
       "earliestDateRestriction" : earliestDateRestriction,
       "checkInOptions": checkInOptions,
@@ -133,6 +133,7 @@ week.map((week,weekIndex)=>(calendarRestriction.map((day,dayIndex)=>(parkingArea
       "service":"Parking",
       "parkingStatus":parkingStatus,
       "RTE":RTE
+      // "public-key":"pk_a7b27edb128f36f1584fc5c8e4db8d8f"
     })
     .then((data) => {
       console.log(data); // JSON data parsed by `data.json()` call
