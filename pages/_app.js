@@ -5,6 +5,7 @@ import ResponsiveAppBar from "./navbar"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GlobalProvider from '../context/global';
 import { useState } from "react";
+import { useRouter } from 'next/router';
 
 
 function MyApp({ Component, pageProps }) {
@@ -43,6 +44,7 @@ function MyApp({ Component, pageProps }) {
  const [bookingEnd, setBookingEnd] = useState([2])
  const [SSOuser, setSSOuser] = useState('')
  const [parkingStatus,setParkingStatus] = useState(false)
+ const router = useRouter()
 
 console.log(parkingAreaName,parkingAreaAddress,parkingAreaFloor,parkingAreaSlots,parkingSlotNames,calendarRestriction,bookingStart,bookingEnd)
   
@@ -96,7 +98,7 @@ console.log(parkingAreaName,parkingAreaAddress,parkingAreaFloor,parkingAreaSlots
       parkingStatus,
       setParkingStatus
       }}>
-    <ResponsiveAppBar />
+    {router.pathname !== '/' && <ResponsiveAppBar />}
     <Component {...pageProps} />
     </GlobalProvider>
     </ThemeProvider>
