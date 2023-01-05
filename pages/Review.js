@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 // import useLocalStorage from '../hooks/useLocalStorage';
 import { useGlobalContext } from '../context/global';
 // import RichTextEditor from "react-rte";
-import MUIRichTextEditor from "mui-rte";
+// import MUIRichTextEditor from "mui-rte";
 // import { convertToRaw } from 'draft-js'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import HelpIcon from "@mui/icons-material/Help";
@@ -25,13 +25,23 @@ import Popover from "@mui/material/Popover";
 import Image from 'next/image';
 import Link from 'next/link';
 // import RichTextEditor from "react-rte";
-import { EditorState } from 'draft-js';
-import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertToRaw } from 'draft-js'
+// import { EditorState } from 'draft-js';
+// import { Editor } from "react-draft-wysiwyg";
+// // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import { convertToRaw } from 'draft-js'
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 
-
+const modules = {
+  toolbar: [
+    [{ 'header': [1, 2, false] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+    ['link', 'image'],
+    ['clean']
+  ],
+};
 
 export default function AddressForm() {
   const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE, RTE } = useGlobalContext()
@@ -105,72 +115,76 @@ export default function AddressForm() {
   };
 
   const [valueRTE, setValueRTE] = React.useState("");
-
-  const handleChangeRTE = (event) => {
-    const plainText = event.getCurrentContent().getPlainText() // for plain text
-    // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
-    // rteContent && setValueRTE(JSON.stringify(rteContent))
-    setValueRTE(plainText);
-    setRTE(plainText)
+  const onChangeRTE = (text) => {
+    setValueRTE(text.getCurrentContent().getPlainText());
+    // setRTE(text)
   };
 
+  // const handleChangeRTE = (event) => {
+  //   const plainText = event.getCurrentContent().getPlainText() // for plain text
+  //   // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+  //   // rteContent && setValueRTE(JSON.stringify(rteContent))
+  //   setValueRTE(plainText);
+  //   setRTE(plainText)
+  // };
 
 
 
-  const myTheme = createTheme({
-    palette: {
-      primary: {
-        main: "#000000"
-      }
-    }
-  });
 
-  Object.assign(myTheme, {
-    overrides: {
-      MUIRichTextEditor: {
-        root: {
-          backgroundColor: "white"
-        },
-        toolbar: {
-          border: "1px solid gray",
-          backgroundColor: "darkgray",
-          borderTopLeftRadius: "18px",
-          borderTopRightRadius: "18px",
-          borderBottomLeftRadius: "4px",
-          borderBottomRightRadius: "4px"
-        },
-        container: {
-          display: "flex",
-          flexDirection: "column"
-        },
-        editor: {
-          backgroundColor: "white",
-          padding: "20px",
-          height: "200px",
-          maxHeight: "200px",
-          overflow: "auto",
-          borderRight: "1px solid gray",
-          borderBottom: "1px solid gray",
-          borderLeft: "1px solid gray",
-          borderBottomLeftRadius: "18px",
-          borderBottomRightRadius: "18px"
-        },
-        placeHolder: {
-          backgroundColor: "white",
-          paddingLeft: 20,
-          width: "inherit",
-          borderRight: "1px solid gray",
-          borderTop: "1px solid gray",
-          borderLeft: "1px solid gray",
-          marginTop: -3
-        },
-        anchorLink: {
-          color: "#333333",
-          textDecoration: "underline"
-        }
-      }
-    }
-  });
+  // const myTheme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: "#000000"
+  //     }
+  //   }
+  // });
+
+  // Object.assign(myTheme, {
+  //   overrides: {
+  //     MUIRichTextEditor: {
+  //       root: {
+  //         backgroundColor: "white"
+  //       },
+  //       toolbar: {
+  //         border: "1px solid gray",
+  //         backgroundColor: "darkgray",
+  //         borderTopLeftRadius: "18px",
+  //         borderTopRightRadius: "18px",
+  //         borderBottomLeftRadius: "4px",
+  //         borderBottomRightRadius: "4px"
+  //       },
+  //       container: {
+  //         display: "flex",
+  //         flexDirection: "column"
+  //       },
+  //       editor: {
+  //         backgroundColor: "white",
+  //         padding: "20px",
+  //         height: "200px",
+  //         maxHeight: "200px",
+  //         overflow: "auto",
+  //         borderRight: "1px solid gray",
+  //         borderBottom: "1px solid gray",
+  //         borderLeft: "1px solid gray",
+  //         borderBottomLeftRadius: "18px",
+  //         borderBottomRightRadius: "18px"
+  //       },
+  //       placeHolder: {
+  //         backgroundColor: "white",
+  //         paddingLeft: 20,
+  //         width: "inherit",
+  //         borderRight: "1px solid gray",
+  //         borderTop: "1px solid gray",
+  //         borderLeft: "1px solid gray",
+  //         marginTop: -3
+  //       },
+  //       anchorLink: {
+  //         color: "#333333",
+  //         textDecoration: "underline"
+  //       }
+  //     }
+  //   }
+  // });
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -185,8 +199,8 @@ export default function AddressForm() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
- console.log(valueRTE)
-  
+  //  console.log(valueRTE)
+
   return (
 
     <React.Fragment>
@@ -336,14 +350,14 @@ export default function AddressForm() {
             Enter guidelines, rules, regulations, or directions for your service
           </Typography>
           <Box sx={{ width: '778px', height: '587px', mt: 2 }}>
-            <ThemeProvider theme={myTheme}>
+            {/* <ThemeProvider theme={myTheme}>
               <MUIRichTextEditor
                 label="Type something here..."
                 onSave={save}
                 inlineToolbar={true}
                 onChange={handleChangeRTE}
               />
-            </ThemeProvider>
+            </ThemeProvider> */}
             {/* <RichTextEditor
               value={editorValue}
               onChange={onChange}
@@ -356,6 +370,15 @@ export default function AddressForm() {
               wrapperClassName="wrapperClassName"
               editorClassName="editorClassName"
               onEditorStateChange={handleEditorState}
+            /> */}
+
+            {/* <ReactQuill
+              theme="snow"
+              placeholder="Type here"
+              value={valueRTE}
+              onChange={onChangeRTE}
+              modules={modules}
+            // style={style}
             /> */}
 
           </Box>
