@@ -36,6 +36,7 @@ import "react-quill/dist/quill.snow.css";
 // import Quill from 'quill';
 // import 'quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { convert } from 'html-to-text';
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
@@ -156,11 +157,11 @@ export default function AddressForm() {
     console.log(data);
   };
 
-  const [valueRTE, setValueRTE] = React.useState("");
-  const onChangeRTE = (text) => {
-    setValueRTE(text.getCurrentContent().getPlainText());
-    // setRTE(text)
-  };
+  // const [valueRTE, setValueRTE] = React.useState("");
+  // const onChangeRTE = (text) => {
+  //   setValueRTE(text.getCurrentContent().getPlainText());
+  //   // setRTE(text)
+  // };
 
   // const handleChangeRTE = (event) => {
   //   const plainText = event.getCurrentContent().getPlainText() // for plain text
@@ -243,8 +244,8 @@ export default function AddressForm() {
 
   //  console.log(valueRTE)
 
- 
-  
+
+
 
   return (
 
@@ -425,18 +426,18 @@ export default function AddressForm() {
               modules={modules}
             // style={style}
             /> */}
-              {/* <Editor value={values} onChange={(newValue) => setValues(newValue)} /> */}
-              <QuillNoSSRWrapper
-      modules={modules}
-      formats={formats}
-      theme="snow"
-      onChange={(content) => {
-        // var htmlToRtf = require('html-to-rtf');
-        console.log('CONTETN: ', content);
-      }}
-    />
-      
-    
+            {/* <Editor value={values} onChange={(newValue) => setValues(newValue)} /> */}
+            <QuillNoSSRWrapper
+              modules={modules}
+              formats={formats}
+              theme="snow"
+              onChange={(content) => {
+                // var htmlToRtf = require('html-to-rtf');
+                setRTE(convert(content));
+              }}
+            />
+
+
 
           </Box>
         </Box>

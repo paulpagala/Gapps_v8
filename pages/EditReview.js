@@ -38,7 +38,54 @@ import { useRouter } from 'next/router'
 import HelpIcon from "@mui/icons-material/Help";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
+import "react-quill/dist/quill.snow.css";
+import dynamic from 'next/dynamic';
+import { convert } from 'html-to-text';
 
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+    ssr: false,
+    loading: () => <p>Loading ...</p>,
+});
+
+const modules = {
+    toolbar: [
+        [{ header: '1' }, { header: '2' }, { font: [] }],
+        [{ size: [] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
+        ],
+        ['link', 'image', 'video'],
+        ['clean'],
+    ],
+    clipboard: {
+        // toggle to add extra line breaks when pasting HTML:
+        matchVisual: false,
+    },
+};
+/*
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
+const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'video',
+];
 
 export default function EditReview() {
     const router = useRouter();
@@ -123,13 +170,13 @@ export default function EditReview() {
     // const [valueRTE, setValueRTE] = React.useState("");
     const [valueRTE, setValueRTE] = React.useState(RTE);
 
-    const handleChangeRTE = (event) => {
-        const plainText = event.getCurrentContent().getPlainText() // for plain text
-        // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
-        // rteContent && setValueRTE(JSON.stringify(rteContent))
-        setValueRTE(plainText);
-        // setRTE(plainText)
-    };
+    // const handleChangeRTE = (event) => {
+    //     const plainText = event.getCurrentContent().getPlainText() // for plain text
+    //     // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+    //     // rteContent && setValueRTE(JSON.stringify(rteContent))
+    //     setValueRTE(plainText);
+    //     // setRTE(plainText)
+    // };
 
 
     // const myTheme = createTheme({
@@ -516,6 +563,15 @@ export default function EditReview() {
                                     onChange={handleChangeRTE}
                                 />
                             </ThemeProvider> */}
+                            <QuillNoSSRWrapper
+                                modules={modules}
+                                formats={formats}
+                                theme="snow"
+                                onChange={(content) => {
+                                    // var htmlToRtf = require('html-to-rtf');
+                                    setValueRTE(convert(content));
+                                }}
+                            />
                         </Box>
 
                     </Box>
