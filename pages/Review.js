@@ -24,7 +24,7 @@ import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 import Image from 'next/image';
 import Link from 'next/link';
-import RichTextEditor from "react-rte";
+// import RichTextEditor from "react-rte";
 
 
 
@@ -109,15 +109,15 @@ export default function AddressForm() {
   //   setValueRTE(plainText);
   //   setRTE(plainText)
   // };
-  const [editorValue, setEditorValue] = React.useState(
-    RichTextEditor.createEmptyValue()
-  );
+  // const [editorValue, setEditorValue] = React.useState(
+  //   RichTextEditor.createEmptyValue()
+  // );
 
-  const onChange = (editorValue) => {
-    setEditorValue(editorValue);
-    setValueRTE(editorValue.toString("markdown"));
-    setRTE(editorValue.toString("markdown"))
-  };
+  // const onChange = (editorValue) => {
+  //   setEditorValue(editorValue);
+  //   setValueRTE(editorValue.toString("markdown"));
+  //   setRTE(editorValue.toString("markdown"))
+  // };
 
 
 
@@ -369,12 +369,12 @@ console.log(RTE)
                 onChange={handleChangeRTE}
               />
             </ThemeProvider> */}
-            <RichTextEditor
+            {/* <RichTextEditor
               value={editorValue}
               onChange={onChange}
               // toolbarConfig={toolbarConfig}
               className="editor"
-              placeholder="Enter your text here..." />
+              placeholder="Enter your text here..." /> */}
 
           </Box>
         </Box>
