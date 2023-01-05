@@ -259,7 +259,7 @@ export default function AddressForm() {
                   onChange={handleChangeNumber}
                   // error={errorPhoneNumber}
                   // helperText={errorPhoneNumber ? 'Please enter a valid phone number' : ''}
-                  placeholder="Your GCash Getpaid account’s public key"
+                  placeholder="Enter public key"
                   InputProps={{ min: 0 }}
                 />
               </FormControl>
@@ -336,12 +336,8 @@ export default function AddressForm() {
               />
             </ThemeProvider> */}
           </Box>
-
         </Box>
-
       </Paper>
-
     </React.Fragment>
-
   );
 }
