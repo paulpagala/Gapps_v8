@@ -29,8 +29,8 @@ import Link from 'next/link';
 // import { Editor } from "react-draft-wysiwyg";
 // // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { convertToRaw } from 'draft-js'
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 
 
 const modules = {
