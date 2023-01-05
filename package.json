@@ -25,6 +25,7 @@
     "eslint-config-next": "13.0.2",
     "firebase": "^9.15.0",
     "lexical": "^0.6.3",
+    "mui-rte": "github:paulpagala/mui-rte",
     "next": "13.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

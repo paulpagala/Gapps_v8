@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 // import useLocalStorage from '../hooks/useLocalStorage';
 import { useGlobalContext } from '../context/global';
 // import RichTextEditor from "react-rte";
-// import MUIRichTextEditor from "mui-rte";
+import MUIRichTextEditor from "mui-rte";
 // import { convertToRaw } from 'draft-js'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import HelpIcon from "@mui/icons-material/Help";
@@ -27,7 +27,7 @@ import Link from 'next/link';
 // import RichTextEditor from "react-rte";
 import { EditorState } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw } from 'draft-js'
 
 
@@ -106,79 +106,71 @@ export default function AddressForm() {
 
   const [valueRTE, setValueRTE] = React.useState("");
 
-  // const handleChangeRTE = (event) => {
-  //   const plainText = event.getCurrentContent().getPlainText() // for plain text
-  //   // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
-  //   // rteContent && setValueRTE(JSON.stringify(rteContent))
-  //   setValueRTE(plainText);
-  //   setRTE(plainText)
-  // };
-  // const [editorValue, setEditorValue] = React.useState(
-  //   RichTextEditor.createEmptyValue()
-  // );
-
-  // const onChange = (editorValue) => {
-  //   setEditorValue(editorValue);
-  //   setValueRTE(editorValue.toString("markdown"));
-  //   setRTE(editorValue.toString("markdown"))
-  // };
+  const handleChangeRTE = (event) => {
+    const plainText = event.getCurrentContent().getPlainText() // for plain text
+    // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+    // rteContent && setValueRTE(JSON.stringify(rteContent))
+    setValueRTE(plainText);
+    setRTE(plainText)
+  };
 
 
 
-  // const myTheme = createTheme({
-  //   palette: {
-  //     primary: {
-  //       main: "#000000"
-  //     }
-  //   }
-  // });
 
-  // Object.assign(myTheme, {
-  //   overrides: {
-  //     MUIRichTextEditor: {
-  //       root: {
-  //         backgroundColor: "white"
-  //       },
-  //       toolbar: {
-  //         border: "1px solid gray",
-  //         backgroundColor: "darkgray",
-  //         borderTopLeftRadius: "18px",
-  //         borderTopRightRadius: "18px",
-  //         borderBottomLeftRadius: "4px",
-  //         borderBottomRightRadius: "4px"
-  //       },
-  //       container: {
-  //         display: "flex",
-  //         flexDirection: "column"
-  //       },
-  //       editor: {
-  //         backgroundColor: "white",
-  //         padding: "20px",
-  //         height: "200px",
-  //         maxHeight: "200px",
-  //         overflow: "auto",
-  //         borderRight: "1px solid gray",
-  //         borderBottom: "1px solid gray",
-  //         borderLeft: "1px solid gray",
-  //         borderBottomLeftRadius: "18px",
-  //         borderBottomRightRadius: "18px"
-  //       },
-  //       placeHolder: {
-  //         backgroundColor: "white",
-  //         paddingLeft: 20,
-  //         width: "inherit",
-  //         borderRight: "1px solid gray",
-  //         borderTop: "1px solid gray",
-  //         borderLeft: "1px solid gray",
-  //         marginTop: -3
-  //       },
-  //       anchorLink: {
-  //         color: "#333333",
-  //         textDecoration: "underline"
-  //       }
-  //     }
-  //   }
-  // });
+  const myTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#000000"
+      }
+    }
+  });
+
+  Object.assign(myTheme, {
+    overrides: {
+      MUIRichTextEditor: {
+        root: {
+          backgroundColor: "white"
+        },
+        toolbar: {
+          border: "1px solid gray",
+          backgroundColor: "darkgray",
+          borderTopLeftRadius: "18px",
+          borderTopRightRadius: "18px",
+          borderBottomLeftRadius: "4px",
+          borderBottomRightRadius: "4px"
+        },
+        container: {
+          display: "flex",
+          flexDirection: "column"
+        },
+        editor: {
+          backgroundColor: "white",
+          padding: "20px",
+          height: "200px",
+          maxHeight: "200px",
+          overflow: "auto",
+          borderRight: "1px solid gray",
+          borderBottom: "1px solid gray",
+          borderLeft: "1px solid gray",
+          borderBottomLeftRadius: "18px",
+          borderBottomRightRadius: "18px"
+        },
+        placeHolder: {
+          backgroundColor: "white",
+          paddingLeft: 20,
+          width: "inherit",
+          borderRight: "1px solid gray",
+          borderTop: "1px solid gray",
+          borderLeft: "1px solid gray",
+          marginTop: -3
+        },
+        anchorLink: {
+          color: "#333333",
+          textDecoration: "underline"
+        }
+      }
+    }
+  });
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -193,36 +185,7 @@ export default function AddressForm() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  // const toolbarConfig = {
-
-  //   // Optionally specify the groups to display (displayed in the order listed).
-  //   display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-  //   INLINE_STYLE_BUTTONS: [
-  //     { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
-  //     { label: 'Italic', style: 'ITALIC' },
-  //     { label: 'Underline', style: 'UNDERLINE' }
-  //   ],
-  //   BLOCK_TYPE_DROPDOWN: [
-  //     { label: 'Normal', style: 'unstyled' },
-  //     { label: 'Heading Large', style: 'header-one' },
-  //     { label: 'Heading Medium', style: 'header-two' },
-  //     { label: 'Heading Small', style: 'header-three' }
-  //   ],
-  //   BLOCK_TYPE_BUTTONS: [
-  //     { label: 'UL', style: 'unordered-list-item' },
-  //     { label: 'OL', style: 'ordered-list-item' }
-  //   ]
-  // }
-
-const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
-const handleEditorState = (e) => {
-  // const plainText = convertToRaw(e.getCurrentContent())
-  setEditorState(e);
-  setRTE(editorState.getCurrentContent().getPlainText())
-};
-  // console.log(RTE)
-  
- 
+ console.log(valueRTE)
   
   return (
 
@@ -373,27 +336,27 @@ const handleEditorState = (e) => {
             Enter guidelines, rules, regulations, or directions for your service
           </Typography>
           <Box sx={{ width: '778px', height: '587px', mt: 2 }}>
-            {/* <ThemeProvider theme={myTheme}>
+            <ThemeProvider theme={myTheme}>
               <MUIRichTextEditor
                 label="Type something here..."
                 onSave={save}
                 inlineToolbar={true}
                 onChange={handleChangeRTE}
               />
-            </ThemeProvider> */}
+            </ThemeProvider>
             {/* <RichTextEditor
               value={editorValue}
               onChange={onChange}
               // toolbarConfig={toolbarConfig}
               className="editor"
               placeholder="Enter your text here..." /> */}
-            <Editor
+            {/* <Editor
               editorState={editorState}
               toolbarClassName="toolbarClassName"
               wrapperClassName="wrapperClassName"
               editorClassName="editorClassName"
               onEditorStateChange={handleEditorState}
-            />
+            /> */}
 
           </Box>
         </Box>
