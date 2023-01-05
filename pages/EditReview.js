@@ -407,7 +407,7 @@ export default function EditReview() {
                                     }}
                                 >
                                     <Box sx={{ height: 500, width: 500, background: '#1D64D8', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        <Typography sx={{ fontSize: 17, mt: 2 }}>What is GCash's Getpaid Payment Portal?</Typography>
+                                        <Typography sx={{ fontSize: 17, mt: 2 }}>What is GCash Getpaid Payment Portal?</Typography>
                                         <ul>
                                             <li><Typography sx={{ p: 1, fontSize: 17 }}>This is a tool to equip businesses to receive GCash payments from customers. You will need to sign up for an account here to connect it to your GAccess service.</Typography></li>
                                             <li><Typography sx={{ p: 1, fontSize: 17 }}>On your account, go to the Integration tab to copy the public key.</Typography></li>
