@@ -194,7 +194,6 @@ export default function EditReview() {
     const [openCheckedModal, setOpenCheckedModal] = React.useState(false)
     function proceedStatus() {
         setOpenCheckedModal(true)
-        router.push('/parkingDashboard')
     }
     const week = [1, 2, 3, 4, 5]
     async function patchServiceSetting(url = '', data = {}) {
@@ -331,7 +330,7 @@ export default function EditReview() {
         setRTE(valueRTE)
         setOpenModal(false)
         setOpenCheckedModal(false)
-
+        router.push('/parkingDashboard')
     }
    
 

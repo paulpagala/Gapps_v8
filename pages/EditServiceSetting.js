@@ -212,6 +212,7 @@ export default function EditServiceSetting() {
         setCheckInOptions(serviceFee)
         setOpenCheckedModal(false)
         setOpenModal(false)
+        router.push('/parkingDashboard')
     }
 
     const [openModal, setOpenModal] = React.useState(false)
@@ -224,7 +225,6 @@ export default function EditServiceSetting() {
     const [openCheckedModal, setOpenCheckedModal] = React.useState(false)
     function proceedStatus() {
         setOpenCheckedModal(true)
-        router.push('/parkingDashboard')
     }
 
 
