@@ -30,18 +30,60 @@ import Link from 'next/link';
 // // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { convertToRaw } from 'draft-js'
 // import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.snow.css";
+// import { Editor } from 'slate-react';
+// import { Value } from 'slate';
+// import Quill from 'quill';
+// import 'quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
 
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 
 const modules = {
   toolbar: [
-    [{ 'header': [1, 2, false] }],
+    [{ header: '1' }, { header: '2' }, { font: [] }],
+    [{ size: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-    ['link', 'image'],
-    ['clean']
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+    ['link', 'image', 'video'],
+    ['clean'],
   ],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false,
+  },
 };
+/*
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
+const formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'image',
+  'video',
+];
+
+
+
 
 export default function AddressForm() {
   const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE, RTE } = useGlobalContext()
@@ -200,6 +242,9 @@ export default function AddressForm() {
   const id = open ? "simple-popover" : undefined;
 
   //  console.log(valueRTE)
+
+ 
+  
 
   return (
 
@@ -380,6 +425,18 @@ export default function AddressForm() {
               modules={modules}
             // style={style}
             /> */}
+              {/* <Editor value={values} onChange={(newValue) => setValues(newValue)} /> */}
+              <QuillNoSSRWrapper
+      modules={modules}
+      formats={formats}
+      theme="snow"
+      onChange={(content) => {
+        // var htmlToRtf = require('html-to-rtf');
+        console.log('CONTETN: ', content);
+      }}
+    />
+      
+    
 
           </Box>
         </Box>
