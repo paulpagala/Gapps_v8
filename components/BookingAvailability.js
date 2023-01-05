@@ -29,6 +29,7 @@ const BookingAvailability = props => {
 
   const array = [];
   const timeArray = [
+    '12:00 AM',
     '12:30 AM',
     '1:00 AM',
     '1:30 AM',
@@ -74,8 +75,7 @@ const BookingAvailability = props => {
     '10:00 PM',
     '10:30 PM',
     '11:00 PM',
-    '11:30 PM',
-    '12:00 AM',
+    '11:30 PM'
   ]
   for (let i = 0; i <= 47; i++) {
     // Add each number to the array

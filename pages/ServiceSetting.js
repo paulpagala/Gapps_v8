@@ -185,6 +185,7 @@ export default function ServiceSetting() {
 
                     sx={{ width: 150 }}
                   >
+                    <MenuItem value={'12:00 AM'}>12:00 AM</MenuItem>
                     <MenuItem value={'12:30 AM'}>12:30 AM</MenuItem>
                     <MenuItem value={'1:00 AM'}>1:00 AM</MenuItem>
                     <MenuItem value={'1:30 AM'}>1:30 AM</MenuItem>
@@ -208,7 +209,7 @@ export default function ServiceSetting() {
                     <MenuItem value={'10:30 AM'}>10:30 AM</MenuItem>
                     <MenuItem value={'11:00 AM'}>11:00 AM</MenuItem>
                     <MenuItem value={'11:30 AM'}>11:30 AM</MenuItem>
-                    <MenuItem value={'12:00 NN'}>12:00 AM</MenuItem>
+                    <MenuItem value={'12:00 PM'}>12:00 PM</MenuItem>
                     <MenuItem value={'12:30 PM'}>12:30 PM</MenuItem>
                     <MenuItem value={'1:00 PM'}>1:00 PM</MenuItem>
                     <MenuItem value={'1:30 PM'}>1:30 PM</MenuItem>
@@ -232,7 +233,7 @@ export default function ServiceSetting() {
                     <MenuItem value={'10:30 PM'}>10:30 PM</MenuItem>
                     <MenuItem value={'11:00 PM'}>11:00 PM</MenuItem>
                     <MenuItem value={'11:30 PM'}>11:30 PM</MenuItem>
-                    <MenuItem value={'12:00 PM'}>12:00 PM</MenuItem>
+                    
                   </Select>
                 </FormControl>
                 <Typography component="subtitle1" variant="subtitle1" sx={{ color: 'grey', display: 'block' }} gutterBottom>
@@ -267,7 +268,7 @@ export default function ServiceSetting() {
                     sx={{ width: 150 }}
                   >
                     <InputLabel>Select time</InputLabel>
-
+                    <MenuItem value={'12:00 AM'}>12:00 AM</MenuItem>
                     <MenuItem value={'12:30 AM'}>12:30 AM</MenuItem>
                     <MenuItem value={'1:00 AM'}>1:00 AM</MenuItem>
                     <MenuItem value={'1:30 AM'}>1:30 AM</MenuItem>
@@ -291,7 +292,7 @@ export default function ServiceSetting() {
                     <MenuItem value={'10:30 AM'}>10:30 AM</MenuItem>
                     <MenuItem value={'11:00 AM'}>11:00 AM</MenuItem>
                     <MenuItem value={'11:30 AM'}>11:30 AM</MenuItem>
-                    <MenuItem value={'12:00 NN'}>12:00 AM</MenuItem>
+                    <MenuItem value={'12:00 PM'}>12:00 PM</MenuItem>
                     <MenuItem value={'12:30 PM'}>12:30 PM</MenuItem>
                     <MenuItem value={'1:00 PM'}>1:00 PM</MenuItem>
                     <MenuItem value={'1:30 PM'}>1:30 PM</MenuItem>
@@ -315,7 +316,7 @@ export default function ServiceSetting() {
                     <MenuItem value={'10:30 PM'}>10:30 PM</MenuItem>
                     <MenuItem value={'11:00 PM'}>11:00 PM</MenuItem>
                     <MenuItem value={'11:30 PM'}>11:30 PM</MenuItem>
-                    <MenuItem value={'12:00 PM'}>12:00 PM</MenuItem>
+                    
                   </Select>
                 </FormControl>
                 <Typography component="subtitle1" variant="subtitle1" sx={{ color: 'grey', display: 'block' }} gutterBottom>
