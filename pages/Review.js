@@ -23,12 +23,14 @@ import HelpIcon from "@mui/icons-material/Help";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 import Image from 'next/image';
+import Link from 'next/link';
+import RichTextEditor from "react-rte";
 
 
 
 
 export default function AddressForm() {
-  const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE } = useGlobalContext()
+  const { setPaidAmount, setGcashNumber, setPaymentRestriction, setCancellationRestriction, setEarliestDateRestriction, setRTE,RTE } = useGlobalContext()
 
   // amount to be paid
   const [value, setValue] = React.useState('');
@@ -100,13 +102,23 @@ export default function AddressForm() {
 
   const [valueRTE, setValueRTE] = React.useState("");
 
-  const handleChangeRTE = (event) => {
-    const plainText = event.getCurrentContent().getPlainText() // for plain text
-    // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
-    // rteContent && setValueRTE(JSON.stringify(rteContent))
-    setValueRTE(plainText);
-    setRTE(plainText)
+  // const handleChangeRTE = (event) => {
+  //   const plainText = event.getCurrentContent().getPlainText() // for plain text
+  //   // const rteContent = convertToRaw(event.getCurrentContent()) // for rte content with text formating
+  //   // rteContent && setValueRTE(JSON.stringify(rteContent))
+  //   setValueRTE(plainText);
+  //   setRTE(plainText)
+  // };
+  const [editorValue, setEditorValue] = React.useState(
+    RichTextEditor.createEmptyValue()
+  );
+
+  const onChange = (editorValue) => {
+    setEditorValue(editorValue);
+    setValueRTE(editorValue.toString("markdown"));
+    setRTE(editorValue.toString("markdown"))
   };
+
 
 
   // const myTheme = createTheme({
@@ -177,7 +189,29 @@ export default function AddressForm() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  // const toolbarConfig = {
+    
+  //   // Optionally specify the groups to display (displayed in the order listed).
+  //   display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
+  //   INLINE_STYLE_BUTTONS: [
+  //     { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
+  //     { label: 'Italic', style: 'ITALIC' },
+  //     { label: 'Underline', style: 'UNDERLINE' }
+  //   ],
+  //   BLOCK_TYPE_DROPDOWN: [
+  //     { label: 'Normal', style: 'unstyled' },
+  //     { label: 'Heading Large', style: 'header-one' },
+  //     { label: 'Heading Medium', style: 'header-two' },
+  //     { label: 'Heading Small', style: 'header-three' }
+  //   ],
+  //   BLOCK_TYPE_BUTTONS: [
+  //     { label: 'UL', style: 'unordered-list-item' },
+  //     { label: 'OL', style: 'ordered-list-item' }
+  //   ]
+  // }
 
+
+console.log(RTE)
   return (
 
     <React.Fragment>
@@ -206,7 +240,7 @@ export default function AddressForm() {
                 Booking Price
               </Typography>
               <Typography component="b1" variant="b1" sx={{ color: 'black', ml: 26 }} gutterBottom>
-                Receiving GCash number wallet
+                Your GCash Getpaid account public key
               </Typography>
               <IconButton aria-describedby={id} onClick={handleClick}>
                 <HelpIcon sx={{ color: '#1D64D8', mt: -1 }} />
@@ -222,13 +256,13 @@ export default function AddressForm() {
                 }}
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "center"
+                  horizontal: "left"
                 }}
               >
                 <Box sx={{ height: 500, width: 500, background: '#1D64D8', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <Typography sx={{ fontSize: 17, mt: 2 }}>What is GCash Getpaid Payment Portal?</Typography>
                   <ul>
-                    <li><Typography sx={{ p: 1, fontSize: 17 }}>This is a tool to equip businesses to receive GCash payments from customers. You will need to sign up for an account here to connect it to your GAccess service.</Typography></li>
+                    <li><Typography sx={{ p: 1, fontSize: 17 }}>This is a tool to equip businesses to receive GCash payments from customers. You will need to sign up for an account <Link style={{ color: 'white', fontWeight: 'bold' }} href="https://getpaid.gcash.com/" target="_blank">here</Link> to connect it to your GAccess service.</Typography></li>
                     <li><Typography sx={{ p: 1, fontSize: 17 }}>On your account, go to the Integration tab to copy the public key.</Typography></li>
                   </ul>
                   {/* <Image src={question_logo_source} alt="question_logo" width={135} height={135} /> */}
@@ -335,6 +369,13 @@ export default function AddressForm() {
                 onChange={handleChangeRTE}
               />
             </ThemeProvider> */}
+            <RichTextEditor
+              value={editorValue}
+              onChange={onChange}
+              // toolbarConfig={toolbarConfig}
+              className="editor"
+              placeholder="Enter your text here..." />
+
           </Box>
         </Box>
       </Paper>
