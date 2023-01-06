@@ -28,7 +28,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useRouter } from 'next/router';
 import { useGlobalContext } from '../context/global';
-import parkingdashboard_image_source from "../public/gaccessillustration.svg"
+import parkingdashboard_image_source from "../public/Group 4427.png"
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import QuestionModal from '../modals/QuestionModal';
@@ -521,7 +521,7 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
         </Paper>
       </TabPanel>
 
-      <Image src={parkingdashboard_image_source} alt="success_logo" width={500} style={{ position: 'relative', marginLeft: "74%", paddingTop: '3%' }} />
+      <Image src={parkingdashboard_image_source} alt="success_logo" width={500} style={{ position: 'relative', marginLeft: "74%", paddingTop: '3%',backgroundColor:'transparent'}} />
       {parkingStatus ? ((<QuestionModal 
       title="Switch Parking service to inactive?" 
       body="Making this service inactive will automatically disable all parking areas" 

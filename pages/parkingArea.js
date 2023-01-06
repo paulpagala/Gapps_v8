@@ -56,6 +56,7 @@ export default function ParkingArea() {
   
   
   const weekOnCalendar = Math.ceil((valueCalendar.$D - valueCalendar.$W - 1) / 7) + 1
+  console.log(valueCalendar.$W)
   
 
   const dateOptions = {

@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
  const [parkingStatus,setParkingStatus] = useState(false)
  const router = useRouter()
 
-console.log(parkingAreaName,parkingAreaAddress,parkingAreaFloor,parkingAreaSlots,parkingSlotNames,calendarRestriction,bookingStart,bookingEnd)
+// console.log(parkingAreaName,parkingAreaAddress,parkingAreaFloor,parkingAreaSlots,parkingSlotNames,calendarRestriction,bookingStart,bookingEnd)
   
 
   return (

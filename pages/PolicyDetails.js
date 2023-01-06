@@ -28,7 +28,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function PolicyDetails() {
-  const { setParkingAreaName, setParkingAreaAddress, setParkingAreaFloor, setParkingAreaSlots, setParkingSlotNames } = useGlobalContext();
+  const { setParkingAreaName, setParkingAreaAddress, setParkingAreaFloor, setParkingAreaSlots, setParkingSlotNames,parkingAreaName, parkingAreaAddress,parkingAreaFloor,parkingAreaSlots,parkingSlotNames} = useGlobalContext();
   const [addParking, setAddParking] = React.useState('');
 
   const handleChangeAddParking = (event) => {
@@ -267,11 +267,33 @@ export default function PolicyDetails() {
     setNewParkingFloor([...newParkingFloor, newParkingFloor.length + 1])
   }
   const deleteFloor = (floor) => {
-    // const indexofparkingfloor = newParkingFloor.indexOf(floor)
-    // return newParkingFloor.splice(indexofparkingfloor,1)
+    arrayFields.splice(floor-1,1)
+    numberOfSlots.splice(floor-1,1)
+    areaFloorField.splice(floor-1,1)
+    // newParkingFloor.splice(floor-1,1)
     setNewParkingFloor(newParkingFloor.filter(floorparking => floorparking !== floor))
-    // console.log(floor)
   }
+
+  const deleteParkingArea = (area) => {
+    parkingArea.splice(area-1,1)
+    changeAddress.splice(area-1,1)
+
+    parkingAreaFields.splice(area-1,1)
+    arrayParkingSlots.splice(area-1,1)
+    arrayParkingAreaFloor.splice(area-1,1)
+
+    parkingAreaName.splice(area-1,1)
+    parkingAreaAddress.splice(area-1,1)
+    parkingAreaFloor.splice(area-1,1)
+    parkingAreaSlots.splice(area-1,1)
+    parkingSlotNames.splice(area-1,1)
+
+
+    setNewParkingArea(newParkingArea.filter(areaparking => areaparking !== area))
+  }
+ 
+  // console.log(numberOfSlots)
+ 
   // console.log(newParkingFloor)
 
   // const dictionary = {};
@@ -291,7 +313,10 @@ export default function PolicyDetails() {
   let createParkingAreas = newParkingArea.map((indexParkingArea) => (
     <Box sx={{ mb: "4%",mt:2 }} key={indexParkingArea - 1} >
       <Paper variant="outlined" sx={{ my: { md: 0, lg: 0 }, p: { md: 2, lg: 3 } }}>
+      <Box sx={{display:'flex',flexDirection:'row',justifyContent: 'space-between'}}>
       <Typography sx={{ ml: 3, fontWeight: 'bold' }}>Parking areas & slots</Typography>
+      {indexParkingArea > 1 ?(<IconButton sx={{color:'#6F8191'}} onClick={()=>deleteParkingArea(indexParkingArea)}><CloseIcon/></IconButton>): null}
+      </Box>
         <Box sx={{ ml: 3 }}>
           <Typography variant="subtitle1" sx={{ color: 'black' }} gutterBottom> Parking area name </Typography>
           <TextField
@@ -452,7 +477,7 @@ export default function PolicyDetails() {
 
 
 
-
+  // console.log(arrayParkingAreaFloor,arrayParkingSlots,parkingAreaFields)
 
   return (
     <React.Fragment>
