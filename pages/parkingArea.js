@@ -208,6 +208,7 @@ export default function ParkingArea() {
   }
 
   const result = groupBySize(slotStatus, lengthsOfParkingFloor)
+  console.log(result)
 
 
 
@@ -298,7 +299,7 @@ export default function ParkingArea() {
                   </Box>
                 </StyledTableCell>
                 <StyledTableCell align="left">
-                  <Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>
+                  {result[indexParkingFloor][index] ==='Active' ? (<Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>) : null}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

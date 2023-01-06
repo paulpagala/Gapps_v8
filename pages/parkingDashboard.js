@@ -32,6 +32,7 @@ import parkingdashboard_image_source from "../public/gaccessillustration.svg"
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import QuestionModal from '../modals/QuestionModal';
+import { useEffect } from 'react';
 
 
 function TabPanel(props) {
@@ -279,18 +280,28 @@ export default function ParkingDashboard() {
   //         console.log(data); // JSON data parsed by `data.json()` call
   //       })))))))
   // }
-
-  {!parkingStatus ? (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
-    patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
-      {
-        "parkingArea": parkingArea,
-        "calendarRestriction": day + week,
-        "updateKey": "parkingStatus",
-        "updateValue": !parkingStatus
-      })
-      .then((data) => {
-        console.log(data); // JSON data parsed by `data.json()` call
-      })))))))):null}
+useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
+  patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
+    {
+      "parkingArea": parkingArea,
+      "calendarRestriction": day + week,
+      "updateKey": "parkingStatus",
+      "updateValue": !parkingStatus
+    })
+    .then((data) => {
+      console.log(data); // JSON data parsed by `data.json()` call
+    })))))))):null}},[parkingStatus])
+  // {!parkingStatus ? (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
+  //   patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
+  //     {
+  //       "parkingArea": parkingArea,
+  //       "calendarRestriction": day + week,
+  //       "updateKey": "parkingStatus",
+  //       "updateValue": !parkingStatus
+  //     })
+  //     .then((data) => {
+  //       console.log(data); // JSON data parsed by `data.json()` call
+  //     })))))))):null}
 
 
   // const theme = useTheme();
@@ -304,7 +315,7 @@ export default function ParkingDashboard() {
   // console.log(selected)
   // console.log(parkingSta)
   console.log(parkingStatus)
-  console.log(bookingStart,bookingEnd)
+  // console.log(bookingStart,bookingEnd)
 
 
   return (
@@ -326,7 +337,7 @@ export default function ParkingDashboard() {
               // onClick={parkingStatus?sendParkingStatus:null}
               sx={{ ml: 'auto', borderColor: '#61B6EC' }}
             >
-              <Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>
+              {parkingStatus ? (<Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to active</Typography>) : (<Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>) }
             </ToggleButton>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', ml: 20 }}>

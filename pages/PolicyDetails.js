@@ -21,6 +21,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Router, { useRouter } from 'next/router';
 import { useGlobalContext } from '../context/global';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -264,15 +266,32 @@ export default function PolicyDetails() {
   const addParkingFloor = () => {
     setNewParkingFloor([...newParkingFloor, newParkingFloor.length + 1])
   }
+  const deleteFloor = (floor) => {
+    // const indexofparkingfloor = newParkingFloor.indexOf(floor)
+    // return newParkingFloor.splice(indexofparkingfloor,1)
+    setNewParkingFloor(newParkingFloor.filter(floorparking => floorparking !== floor))
+    // console.log(floor)
+  }
+  // console.log(newParkingFloor)
 
   // const dictionary = {};
   // for (let i = 0; i < parkingArea.length; i++) {
   //   dictionary[parkingArea[i]] = arrayParkingAreaFloor[i];
   // }
 
+ 
+  // const deleteFloor = (floor) =>
+  //   const indexofparkingfloor = newParkingFloor.indexOf(floor)
+  //   console.log(newParkingFloor.splice(indexofparkingfloor+1,1))
+  //   // console.log(indexofparkingfloor)
+  //   console.log(newParkingFloor.indexOf(floor))
+  //   console.log(newParkingFloor)
+  // }
+
   let createParkingAreas = newParkingArea.map((indexParkingArea) => (
-    <Box sx={{ mb: "4%" }} key={indexParkingArea - 1} >
+    <Box sx={{ mb: "4%",mt:2 }} key={indexParkingArea - 1} >
       <Paper variant="outlined" sx={{ my: { md: 0, lg: 0 }, p: { md: 2, lg: 3 } }}>
+      <Typography sx={{ ml: 3, fontWeight: 'bold' }}>Parking areas & slots</Typography>
         <Box sx={{ ml: 3 }}>
           <Typography variant="subtitle1" sx={{ color: 'black' }} gutterBottom> Parking area name </Typography>
           <TextField
@@ -300,10 +319,14 @@ export default function PolicyDetails() {
         <Box >
           {newParkingFloor.map((indexParkingFloor) => (
             <Paper variant="outlined" sx={{ mr: 3, ml: 3, my: { md: 3, lg: 5 }, p: { md: 2, lg: 3 }, backgroundColor: '#FAFAFA' }} key={indexParkingFloor}>
-              <Typography variant="subtitle1" sx={{ color: 'black' }} gutterBottom>Area Floor</Typography>
+              <Box sx={{display:'flex',flexDirection:'row',justifyContent: 'space-between'}}>
+              <Typography variant="subtitle1" sx={{ color: 'black' }} gutterBottom>Area floor</Typography>
+              {indexParkingFloor > 1?(<IconButton sx={{color:'#6F8191'}} onClick={()=>deleteFloor(indexParkingFloor)}><CloseIcon/></IconButton>): null}
+              {/* <Button sx={{color:'#6F8191'}} onClick={()=>deleteFloor(indexParkingFloor)}>X</Button> */}
+              </Box>
               <TextField
                 id="outlined-AreaFloor"
-                label="Area Floor"
+                label="Area floor"
                 // value={areaFloor}
                 // onChange={handleChangeAreaFloor}
                 onChange={(event) =>
@@ -420,12 +443,12 @@ export default function PolicyDetails() {
   // console.log(arrayParking)
   // console.log(arrayParkingAreaFloor)
   // console.log(indexParkingArea)
-  console.log(parkingAreaFields)
+  // console.log(parkingAreaFields)
   // console.log(newParkingArea)
-  // useEffect(() => {
-  //   addParkingArea(),
-  //   addParkingFloor()
-  // },[]);
+  useEffect(() => {
+    addParkingArea(),
+    addParkingFloor()
+  },[]);
 
 
 
@@ -433,7 +456,8 @@ export default function PolicyDetails() {
 
   return (
     <React.Fragment>
-      <Paper variant="outlined" sx={{ my: { md: 3, lg: 5 }, p: { md: 2, lg: 3 } }}>
+      {createParkingAreas}
+      {/* <Paper variant="outlined" sx={{ my: { md: 3, lg: 5 }, p: { md: 2, lg: 3 } }}>
         <Box>
           <Typography sx={{ ml: 3, fontWeight: 'bold' }}>Parking areas & slots</Typography>
           <Typography sx={{ ml: 3, mt: 2 }}>Select how you will add your parking areas</Typography>
@@ -447,20 +471,20 @@ export default function PolicyDetails() {
             onChange={handleChangeAddParking}
           >
             <FormControlLabel value="list" control={<Radio />} label="List manually" />
-            {/* <FormControlLabel value="bulk" control={<Radio />} label="Upload bulk list" /> */}
+            <FormControlLabel value="bulk" control={<Radio />} label="Upload bulk list" />
           </RadioGroup>
         </FormControl>
-      </Paper>
+      </Paper> */}
 
 
-      {addParking === "list" ?
+      {/* {addParking === "list" ?
         (
           <Box>
             {createParkingAreas}
           </Box>
         )
         : null
-      }
+      } */}
 
 
 
@@ -496,9 +520,12 @@ export default function PolicyDetails() {
           </Paper>)
         : null
       } */}
-      {addParking === "list" ? (<Button variant='text' sx={{ textDecoration: 'underline' }} onClick={addParkingArea}>
+      {/* {addParking === "list" ? (<Button variant='text' sx={{ textDecoration: 'underline' }} onClick={addParkingArea}>
         + Add another parking area
-      </Button>) : null}
+      </Button>) : null} */}
+      <Button variant='text' sx={{ textDecoration: 'underline' }} onClick={addParkingArea}>
+        + Add another parking area
+      </Button>
 
 
     </React.Fragment>

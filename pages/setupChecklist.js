@@ -239,7 +239,7 @@ week.map((week,weekIndex)=>(calendarRestriction.map((day,dayIndex)=>(parkingArea
                 <Image src={success_logo_source} alt="success_logo" width={135} height={135} />
               </Box>
               <DialogTitle id="responsive-dialog-title" sx={{justifyContent:'center'}}>
-                {"Service Setup Complete"}
+                {"Service setup complete"}
               </DialogTitle>
               <DialogContent sx={{ pl: 5, pr: 5 }}>
                 <DialogContentText>

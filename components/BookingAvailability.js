@@ -12,21 +12,25 @@ import { useGlobalContext } from '../context/global';
 
 
 const BookingAvailability = props => {
-  const {bookingStart,setBookingStart,bookingEnd,setBookingEnd} = useGlobalContext();
+
+  // const week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+
+  const {calendarRestriction,bookingStart,setBookingStart,bookingEnd,setBookingEnd} = useGlobalContext();
 
 
-  const [bookingScheduleStart, setBookingScheduleStart] = React.useState(bookingStart);
+  const [bookingScheduleStart, setBookingScheduleStart] = React.useState(bookingStart[calendarRestriction.indexOf(props.day)]);
   const handleChangeBookingScheduleStart = (event) => {
     setBookingScheduleStart(event.target.value);
     setBookingStart([...bookingStart,event.target.value])
   };
 
-  const [bookingScheduleEnd, setBookingScheduleEnd] = React.useState(bookingEnd);
+  const [bookingScheduleEnd, setBookingScheduleEnd] = React.useState(bookingEnd[calendarRestriction.indexOf(props.day)]);
   const handleChangeBookingScheduleEnd = (event) => {
     setBookingScheduleEnd(event.target.value);
     setBookingEnd([...bookingEnd,event.target.value])
   };
 
+  // console.log(bookingEnd[1])
   const array = [];
   const timeArray = [
     '12:00 AM',
@@ -77,17 +81,20 @@ const BookingAvailability = props => {
     '11:00 PM',
     '11:30 PM'
   ]
-  for (let i = 0; i <= 47; i++) {
+  // console.log(timeArray.length)
+  for (let i = 0; i <= 46; i++) {
     // Add each number to the array
     array.push(i);
   }
   let MenuItemsStart = array.map((index) => (
     <MenuItem key={index} value={index}>{timeArray[index]}</MenuItem>))
 
-  const subArr = array.slice(bookingScheduleStart)
+  const subArr = array.slice(bookingScheduleStart+1)
 
   let MenuItemsEnd = subArr.map((index) => (
-    <MenuItem key={index} value={index+1}>{timeArray[index]}</MenuItem>))
+    <MenuItem key={index} value={index}>{timeArray[index]}</MenuItem>))
+
+  
 
   return (
     <Box sx={{ mb: 1, display: 'flex', flexDirection: "row", alignItems: 'center', alignContent: 'stretch' }}>

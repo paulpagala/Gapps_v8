@@ -41,6 +41,7 @@ import Popover from "@mui/material/Popover";
 import "react-quill/dist/quill.snow.css";
 import dynamic from 'next/dynamic';
 import { convert } from 'html-to-text';
+import portal_source from '../public/Group 7853.png'
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     ssr: false,
@@ -459,7 +460,7 @@ export default function EditReview() {
                                             <li><Typography sx={{ p: 1, fontSize: 17 }}>This is a tool to equip businesses to receive GCash payments from customers. You will need to sign up for an account here to connect it to your GAccess service.</Typography></li>
                                             <li><Typography sx={{ p: 1, fontSize: 17 }}>On your account, go to the Integration tab to copy the public key.</Typography></li>
                                         </ul>
-                                        {/* <Image src={question_logo_source} alt="question_logo" width={135} height={135} /> */}
+                                        <Image src={portal_source} alt="portal_source" width={480} height={225} />
                                     </Box>
                                 </Popover>
                             </Box>
