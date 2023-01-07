@@ -48,7 +48,7 @@ function handleClick(event) {
 
 export default function ParkingArea() {
   const router = useRouter();
-  const { parkingAreaFloor, parkingSlotNames, parkingAreaSlots, parkingAreaName, parkingAreaAddress } = useGlobalContext();
+  const { parkingAreaFloor, parkingSlotNames, parkingAreaSlots, parkingAreaName, parkingAreaAddress,parkingAreaStatus } = useGlobalContext();
   const [selected, setSelected] = React.useState(false);
   const [filterActive, setFilterActive] = React.useState();
   const [error, setError] = React.useState("");
@@ -364,9 +364,10 @@ export default function ParkingArea() {
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', ml: 2 }}>
             <Box sx={{ width: 100 }}>
-              {selected ? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)}
+              {parkingAreaStatus[indexOfParking] === "Inactive" ? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)}
               <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5, color: 'grey' }} gutterBottom>
-                {selected ? "Inactive" : "Active"}
+                {/* {selected ? "Inactive" : "Active"} */}
+                {parkingAreaStatus[indexOfParking]}
               </Typography>
             </Box>
             <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 5, color: 'grey' }} gutterBottom>

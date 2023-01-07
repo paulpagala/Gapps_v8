@@ -66,6 +66,7 @@ export default function Checkout() {
     gcashNumber,
     calendarRestriction,
     parkingStatus,
+    parkingAreaStatus,
     RTE
   } = useGlobalContext();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -132,6 +133,7 @@ week.map((week,weekIndex)=>(calendarRestriction.map((day,dayIndex)=>(parkingArea
       "week":week,
       "service":"Parking",
       "parkingStatus":parkingStatus,
+      "parkingAreaStatus": parkingAreaStatus[index],
       "RTE":RTE
       // "public-key":"pk_a7b27edb128f36f1584fc5c8e4db8d8f"
     })

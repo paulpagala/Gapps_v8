@@ -46,6 +46,7 @@ function MyApp({ Component, pageProps }) {
 //  
  const [SSOuser, setSSOuser] = useState('')
  const [parkingStatus,setParkingStatus] = useState(false)
+ const [parkingAreaStatus,setParkingAreaStatus] = useState(Array.from(Array(parkingAreaName.length), () => "Active"))
  const router = useRouter()
 
 // console.log(parkingAreaName,parkingAreaAddress,parkingAreaFloor,parkingAreaSlots,parkingSlotNames,calendarRestriction,bookingStart,bookingEnd)
@@ -98,7 +99,9 @@ function MyApp({ Component, pageProps }) {
       SSOuser, 
       setSSOuser,
       parkingStatus,
-      setParkingStatus
+      setParkingStatus,
+      parkingAreaStatus,
+      setParkingAreaStatus
       }}>
     {router.pathname !== '/' && <ResponsiveAppBar />}
     <Component {...pageProps} />

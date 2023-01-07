@@ -112,10 +112,11 @@ const StyledMenu = styled((props) => (
 
 export default function ParkingDashboard() {
 
-  const { parkingAreaName, parkingAreaAddress, calendarRestriction, checkInOptions, earliestDateRestriction, cancellationRestriction, RTE, bookingStart, bookingEnd, paymentRestriction, setParkingStatus,parkingStatus } = useGlobalContext()
+  const { parkingAreaName, parkingAreaAddress, calendarRestriction, checkInOptions, earliestDateRestriction, cancellationRestriction, RTE, bookingStart, bookingEnd, paymentRestriction, setParkingStatus,parkingStatus,setParkingAreaStatus} = useGlobalContext()
   const router = useRouter();
-  const [selected, setSelected] = React.useState(false);
-  const [selectedParking, setSelectedParking] = React.useState(false);
+  const week = [1, 2, 3, 4, 5]
+  // const [selected, setSelected] = React.useState(false);
+  // const [selectedParking, setSelectedParking] = React.useState(false);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -162,12 +163,46 @@ export default function ParkingDashboard() {
   }
 
   const rows = [];
+  const [activeArray,setActiveArray] = React.useState(Array.from(Array(parkingAreaName.length), () => "Active"));
+  const [parkingSelected,setParkingSelected]=React.useState(Array.from(Array(parkingAreaName.length), () => false))
+ 
+  const changeToInactive = (e) => {
+    // Map over the parkingSelected array and toggle the value at index `e`
+    const newParkingAreaStatus = parkingSelected.map((status, index) => 
+      index === e ? !status : status
+    );
+    // Update the parkingSelected state with the new array
+    setParkingSelected(newParkingAreaStatus);
+  
+    // Map over the activeArray array and update the value at index `e` based on the value in newParkingAreaStatus
+    const newStatusList = activeArray.map((status, index) => 
+      newParkingAreaStatus[index] ? "Inactive" : "Active"
+    );
+    // Update the activeArray state with the new array
+    setActiveArray(newStatusList);
+    // setParkingAreaStatus(newStatusList)
+    setParkingAreaStatus(newStatusList);
+    
 
+    (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
+      patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
+        {
+          "parkingArea": parkingArea,
+          "calendarRestriction": day + week,
+          "updateKey": "parkingAreaStatus",
+          "updateValue": newStatusList[index]
+        })
+        .then((data) => {
+          console.log(data); // JSON data parsed by `data.json()` call
+        }))))))))
+  }
+  
   // const bookedRow = [] 
   for (let i = 0; i < parkingAreaName.length; i++) {
-    rows.push(createData(parkingAreaName[i], parkingAreaAddress[i], 'Active', 'pj'));
+    rows.push(createData(parkingAreaName[i], parkingAreaAddress[i], activeArray[i], 'pj'));
   }
 
+  // useEffect(()=>{changeToInactive()},[])
 
 
   function redirectToServiceSetting() {
@@ -266,7 +301,7 @@ export default function ParkingDashboard() {
     });
     return response.json(); // parses JSON response into native JavaScript objects
   }
-  const week = [1, 2, 3, 4, 5]
+ 
   // function sendParkingStatus() {
   //   week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
   //     patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
@@ -314,9 +349,10 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
 
   // console.log(selected)
   // console.log(parkingSta)
-  console.log(parkingStatus)
+  // console.log(parkingStatus)
   // console.log(bookingStart,bookingEnd)
 
+// console.log(activeArray)
 
   return (
     <React.Fragment>
@@ -436,11 +472,16 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((row,rowIndex) => (
 
                 <StyledTableRow key={row.parkingAreaName}>
-                  <StyledTableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                    <Button style={{ textDecoration: 'none', color: 'black' }} onClick={() => routeToParkingArea(row.parkingAreaName)}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Button>
+                  <StyledTableCell component="th" scope="row" >
+                    {activeArray[rowIndex] === "Active" ?
+                    <Button style={{ textDecoration: 'none', color: 'black', fontSize:16 }} onClick={() => routeToParkingArea(row.parkingAreaName)}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Button>
+                    :
+                    <Typography sx={{ml:1.9, fontSize:16,letterSpacing: 0.5}}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Typography>
+                    }
+                    
                   </StyledTableCell>
                   {row.address ?
                     (<StyledTableCell align="left" sx={{ fontSize: 16 }}>{row.address}</StyledTableCell>) :
@@ -448,10 +489,11 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
                   {/* <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row.address ? row.address : "Not specified"}</StyledTableCell> */}
                   <StyledTableCell align="left">
                     <Box sx={{ width: 100 }}>
-                      {!parkingStatus?(selectedParking ? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)):(<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />)}
-                     
+                      {!parkingStatus?(activeArray[rowIndex]==="Inactive"? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)):(<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />)}
                       <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5, color: 'grey' }} gutterBottom>
-                      {!parkingStatus?(selectedParking ? "Inactive" : "Active"):"Inactive"}
+                      {/* {!parkingStatus?(selectedParking ? "Inactive" : "Active"):"Inactive"} */}
+                      {!parkingStatus?activeArray[rowIndex]:"Inactive"}
+                      {/* {activeArray[rowIndex]} */}
                         {/* {selectedParking ? "Inactive" : "Active"} */}
                       </Typography>
                     </Box>
@@ -459,10 +501,13 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
                   <StyledTableCell align="left">
                     <ToggleButton
                       value="check"
-                      selected={selectedParking}
-                      onChange={() => {
-                        setSelectedParking(!selectedParking);
-                      }}
+                      // selected={selectedParking}
+                      selected={parkingSelected[rowIndex]}
+                      // onChange={() => {
+                      //   // setSelectedParking(!selectedParking);
+                      //   changeToInactive(rowIndex)
+                      // }}
+                      onClick={()=>{changeToInactive(rowIndex)}}
                       sx={{ borderWidth: 0 }}
                     >
                       <Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>
