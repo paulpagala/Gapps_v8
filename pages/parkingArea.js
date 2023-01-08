@@ -173,14 +173,16 @@ export default function ParkingArea() {
   
 
 
-  const parkingSlot = parkingAreaSlots[indexOfParking]
+  // const parkingSlot = parkingAreaSlots[indexOfParking]
 
   
 
-  // const [totalSlots, setTotalSlots] = React.useState(0)
+  const [totalSlots, setTotalSlots] = React.useState(0)
   // {(typeof (parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) !== 'undefined')? setTotalSlots(parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}
   // if(parkingSlot.length >0){
-    const totalSlots = parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0) 
+    {}
+    // const totalSlots = parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0) 
+    {typeof (parkingAreaSlots[indexOfParking]) !== "undefined" ?  setTotalSlots(parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}
   // }
 
   
@@ -278,8 +280,7 @@ export default function ParkingArea() {
 
 
 
-
-            {parkingSlotNames[indexOfParking][indexParkingFloor].map((row, index) => (
+{typeof (parkingSlotNames[indexOfParking]) !== "undefined" ? (typeof(parkingSlotNames[indexOfParking][indexParkingFloor])!=="undefined"?(parkingSlotNames[indexOfParking][indexParkingFloor].map((row, index) => (
               <StyledTableRow key={row}>
                 <StyledTableCell component="th" scope="row" sx={{ fontSize: 16 }}>
                   {/* <Link href='/parkingArea' style={{ textDecoration: 'none', color: 'black' }}>{row.slotId}</Link> */}
@@ -303,7 +304,8 @@ export default function ParkingArea() {
                   {result[indexParkingFloor][index] ==='Active' ? (<Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>) : null}
                 </StyledTableCell>
               </StyledTableRow>
-            ))}
+            ))):null) :null }
+        
 
           </TableBody>
         </Table>
