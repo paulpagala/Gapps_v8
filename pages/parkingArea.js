@@ -198,7 +198,8 @@ export default function ParkingArea() {
   }
 
   const [lengthsOfParkingFloor,setLengthsOfParkingFloor] = React.useState([])
-  {typeof (parkingSlotNames[indexOfParking]) !=="undefined"? setLengthsOfParkingFloor(parkingSlotNames[indexOfParking].map(arr => arr.length)):setLengthsOfParkingFloor([])}
+  useEffect(()=>{{typeof (parkingSlotNames[indexOfParking]) !=="undefined"? setLengthsOfParkingFloor(parkingSlotNames[indexOfParking].map(arr => arr.length)):setLengthsOfParkingFloor([])}},[])
+  
   // const lengthsOfParkingFloor = parkingSlotNames[indexOfParking].map(arr => arr.length)
   
 
