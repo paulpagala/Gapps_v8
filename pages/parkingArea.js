@@ -177,12 +177,12 @@ export default function ParkingArea() {
 
   
 
-  const [totalSlots, setTotalSlots] = React.useState(0)
+  // const [totalSlots, setTotalSlots] = React.useState(0)
   // {(typeof (parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) !== 'undefined')? setTotalSlots(parkingSlot.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}
   // if(parkingSlot.length >0){
-    {}
-    // const totalSlots = parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0) 
-    useEffect(()=>{{typeof (parkingAreaSlots[indexOfParking]) !== "undefined" ?  setTotalSlots(parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}},[])
+    // {}
+    const totalSlots = parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0) 
+    // useEffect(()=>{{typeof (parkingAreaSlots[indexOfParking]) !== "undefined" ?  setTotalSlots(parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}},[])
     
   // }
 
@@ -198,10 +198,10 @@ export default function ParkingArea() {
     slotStatus.push("Active");
   }
 
-  const [lengthsOfParkingFloor,setLengthsOfParkingFloor] = React.useState([])
-  useEffect(()=>{{typeof (parkingSlotNames[indexOfParking]) !=="undefined"? setLengthsOfParkingFloor(parkingSlotNames[indexOfParking].map(arr => arr.length)):setLengthsOfParkingFloor([])}},[])
+  // const [lengthsOfParkingFloor,setLengthsOfParkingFloor] = React.useState([])
+  // useEffect(()=>{{typeof (parkingSlotNames[indexOfParking]) !=="undefined"? setLengthsOfParkingFloor(parkingSlotNames[indexOfParking].map(arr => arr.length)):setLengthsOfParkingFloor([])}},[])
   
-  // const lengthsOfParkingFloor = parkingSlotNames[indexOfParking].map(arr => arr.length)
+  const lengthsOfParkingFloor = parkingSlotNames[indexOfParking].map(arr => arr.length)
   
 
   function groupBySize(arr, sizes) {
@@ -229,181 +229,182 @@ export default function ParkingArea() {
     }
   }
   
-let iterateParkingSlots = (typeof (parkingSlotNames[indexOfParking]) !== "undefined"?(typeof (parkingSlotNames[indexOfParking][indexParkingFloor]) !=="undefined"?(parkingAreaFloor[indexOfParking].map((parkingfloor, indexParkingFloor) =>
+// let iterateParkingSlots = (typeof (parkingSlotNames[indexOfParking]) !== "undefined"?(parkingAreaFloor[indexOfParking].map((parkingfloor, indexParkingFloor) =>
 
-(<Accordion defaultExpanded key={indexParkingFloor}>
-  <AccordionSummary
-    expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
-    aria-controls="panel1a-content"
-    id="panel1a-header"
-    sx={{ backgroundColor: '#3D4E5D' }}
-  >
-    <Typography sx={{ color: 'white' }}>{parkingfloor} slot/s</Typography>
+// (<Accordion defaultExpanded key={indexParkingFloor}>
+//   <AccordionSummary
+//     expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+//     aria-controls="panel1a-content"
+//     id="panel1a-header"
+//     sx={{ backgroundColor: '#3D4E5D' }}
+//   >
+//     <Typography sx={{ color: 'white' }}>{parkingfloor} slot/s</Typography>
    
-  </AccordionSummary>
-  <AccordionDetails>
-    <TableContainer sx={{ width: '95%', margin: 'auto', my: '2%' }} component={Paper}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', ml: '2%', alignItems: 'center' }}>
-        <FormControl variant="outlined">
-          <Input
-            id="input-with-icon-adornment"
-            placeholder='Type search here'
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-        <Typography sx={{ color: 'black', ml: '5%' }}>Filter by:</Typography>
-        <FormControl sx={{ my: 2, ml: 3.5, minWidth: '120px', backgroundColor: 'white' }}>
-          <InputLabel id="demo-simple-select-label">Status</InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth-label"
-            value={filterActive}
-            onChange={handleChangeFilterActive}
-            label="Status"
-          >
-            <MenuItem value={true}>Active</MenuItem>
-            <MenuItem value={false}>Inactive</MenuItem>
-          </Select>
-        </FormControl>
-        <Button variant="text" sx={{ ml: 'auto', mr: 2, textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>+Add new slot</Button>
-      </Box>
-      <Table sx={{ minWidth: 500 }} aria-label="customized table">
-        <TableHead>
-          <TableRow >
-            <StyledTableCell sx={{ fontSize: 17 }}>Slot ID</StyledTableCell>
-            <StyledTableCell align="left" sx={{ fontSize: 17 }}>Slot name</StyledTableCell>
-            <StyledTableCell align="left" sx={{ fontSize: 17 }}>Status</StyledTableCell>
-            <StyledTableCell align="left" sx={{ fontSize: 17 }}>Action</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+//   </AccordionSummary>
+//   <AccordionDetails>
+//     <TableContainer sx={{ width: '95%', margin: 'auto', my: '2%' }} component={Paper}>
+//       <Box sx={{ display: 'flex', flexDirection: 'row', ml: '2%', alignItems: 'center' }}>
+//         <FormControl variant="outlined">
+//           <Input
+//             id="input-with-icon-adornment"
+//             placeholder='Type search here'
+//             startAdornment={
+//               <InputAdornment position="start">
+//                 <SearchIcon />
+//               </InputAdornment>
+//             }
+//           />
+//         </FormControl>
+//         <Typography sx={{ color: 'black', ml: '5%' }}>Filter by:</Typography>
+//         <FormControl sx={{ my: 2, ml: 3.5, minWidth: '120px', backgroundColor: 'white' }}>
+//           <InputLabel id="demo-simple-select-label">Status</InputLabel>
+//           <Select
+//             labelId="demo-simple-select-autowidth-label"
+//             id="demo-simple-select-autowidth-label"
+//             value={filterActive}
+//             onChange={handleChangeFilterActive}
+//             label="Status"
+//           >
+//             <MenuItem value={true}>Active</MenuItem>
+//             <MenuItem value={false}>Inactive</MenuItem>
+//           </Select>
+//         </FormControl>
+//         <Button variant="text" sx={{ ml: 'auto', mr: 2, textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>+Add new slot</Button>
+//       </Box>
+//       <Table sx={{ minWidth: 500 }} aria-label="customized table">
+//         <TableHead>
+//           <TableRow >
+//             <StyledTableCell sx={{ fontSize: 17 }}>Slot ID</StyledTableCell>
+//             <StyledTableCell align="left" sx={{ fontSize: 17 }}>Slot name</StyledTableCell>
+//             <StyledTableCell align="left" sx={{ fontSize: 17 }}>Status</StyledTableCell>
+//             <StyledTableCell align="left" sx={{ fontSize: 17 }}>Action</StyledTableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+
+
+// {typeof (parkingSlotNames[indexOfParking][indexParkingFloor]) !== "undefined" ? parkingSlotNames[indexOfParking][indexParkingFloor].map((row, index) => (
+//             <StyledTableRow key={row}>
+//               <StyledTableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+//                 {/* <Link href='/parkingArea' style={{ textDecoration: 'none', color: 'black' }}>{row.slotId}</Link> */}
+//                 {/* {row.slotId} */}
+//                 {/* ID{index + indexParkingFloor + indexParkingFloor} */}
+//                 ID{index}
+//               </StyledTableCell>
+//               <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row}</StyledTableCell>
+//               <StyledTableCell align="left">
+//                 <Box sx={{ width: 200 }}>
+//                   {redOrBlack(result[indexParkingFloor][index])}
+//                   {/* <CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} /> */}
+//                   <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5 }} >
+//                     {/* {slotStatus[indexParkingFloor + index + indexParkingFloor]} */}
+//                     {/* {updatedSlotStatus[indexParkingFloor][index]} */}
+//                     {result[indexParkingFloor][index]}
+//                   </Typography>
+//                 </Box>
+//               </StyledTableCell>
+//               <StyledTableCell align="left">
+//                 {result[indexParkingFloor][index] ==='Active' ? (<Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>) : null}
+//               </StyledTableCell>
+//             </StyledTableRow>
+//           )) :null}
+
+
+      
+
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+//   </AccordionDetails>
+// </Accordion>))):null) 
+ 
+  let iterateParkingSlots = parkingAreaFloor[indexOfParking].map((parkingfloor, indexParkingFloor) =>
+
+  (<Accordion defaultExpanded key={indexParkingFloor}>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+      sx={{ backgroundColor: '#3D4E5D' }}
+    >
+      <Typography sx={{ color: 'white' }}>{parkingfloor} slot/s</Typography>
+     
+    </AccordionSummary>
+    <AccordionDetails>
+      <TableContainer sx={{ width: '95%', margin: 'auto', my: '2%' }} component={Paper}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', ml: '2%', alignItems: 'center' }}>
+          <FormControl variant="outlined">
+            <Input
+              id="input-with-icon-adornment"
+              placeholder='Type search here'
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <Typography sx={{ color: 'black', ml: '5%' }}>Filter by:</Typography>
+          <FormControl sx={{ my: 2, ml: 3.5, minWidth: '120px', backgroundColor: 'white' }}>
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth-label"
+              value={filterActive}
+              onChange={handleChangeFilterActive}
+              label="Status"
+            >
+              <MenuItem value={true}>Active</MenuItem>
+              <MenuItem value={false}>Inactive</MenuItem>
+            </Select>
+          </FormControl>
+          <Button variant="text" sx={{ ml: 'auto', mr: 2, textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>+Add new slot</Button>
+        </Box>
+        <Table sx={{ minWidth: 500 }} aria-label="customized table">
+          <TableHead>
+            <TableRow >
+              <StyledTableCell sx={{ fontSize: 17 }}>Slot ID</StyledTableCell>
+              <StyledTableCell align="left" sx={{ fontSize: 17 }}>Slot name</StyledTableCell>
+              <StyledTableCell align="left" sx={{ fontSize: 17 }}>Status</StyledTableCell>
+              <StyledTableCell align="left" sx={{ fontSize: 17 }}>Action</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
 
 
 
 {(parkingSlotNames[indexOfParking][indexParkingFloor].map((row, index) => (
-            <StyledTableRow key={row}>
-              <StyledTableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                {/* <Link href='/parkingArea' style={{ textDecoration: 'none', color: 'black' }}>{row.slotId}</Link> */}
-                {/* {row.slotId} */}
-                {/* ID{index + indexParkingFloor + indexParkingFloor} */}
-                ID{index}
-              </StyledTableCell>
-              <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row}</StyledTableCell>
-              <StyledTableCell align="left">
-                <Box sx={{ width: 200 }}>
-                  {redOrBlack(result[indexParkingFloor][index])}
-                  {/* <CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} /> */}
-                  <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5 }} >
-                    {/* {slotStatus[indexParkingFloor + index + indexParkingFloor]} */}
-                    {/* {updatedSlotStatus[indexParkingFloor][index]} */}
-                    {result[indexParkingFloor][index]}
-                  </Typography>
-                </Box>
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                {result[indexParkingFloor][index] ==='Active' ? (<Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>) : null}
-              </StyledTableCell>
-            </StyledTableRow>
-          )))}
-      
-
-        </TableBody>
-      </Table>
-    </TableContainer>
-  </AccordionDetails>
-</Accordion>))):null) :null)
- 
-//   let iterateParkingSlots = parkingAreaFloor[indexOfParking].map((parkingfloor, indexParkingFloor) =>
-
-//   (<Accordion defaultExpanded key={indexParkingFloor}>
-//     <AccordionSummary
-//       expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
-//       aria-controls="panel1a-content"
-//       id="panel1a-header"
-//       sx={{ backgroundColor: '#3D4E5D' }}
-//     >
-//       <Typography sx={{ color: 'white' }}>{parkingfloor} slot/s</Typography>
-     
-//     </AccordionSummary>
-//     <AccordionDetails>
-//       <TableContainer sx={{ width: '95%', margin: 'auto', my: '2%' }} component={Paper}>
-//         <Box sx={{ display: 'flex', flexDirection: 'row', ml: '2%', alignItems: 'center' }}>
-//           <FormControl variant="outlined">
-//             <Input
-//               id="input-with-icon-adornment"
-//               placeholder='Type search here'
-//               startAdornment={
-//                 <InputAdornment position="start">
-//                   <SearchIcon />
-//                 </InputAdornment>
-//               }
-//             />
-//           </FormControl>
-//           <Typography sx={{ color: 'black', ml: '5%' }}>Filter by:</Typography>
-//           <FormControl sx={{ my: 2, ml: 3.5, minWidth: '120px', backgroundColor: 'white' }}>
-//             <InputLabel id="demo-simple-select-label">Status</InputLabel>
-//             <Select
-//               labelId="demo-simple-select-autowidth-label"
-//               id="demo-simple-select-autowidth-label"
-//               value={filterActive}
-//               onChange={handleChangeFilterActive}
-//               label="Status"
-//             >
-//               <MenuItem value={true}>Active</MenuItem>
-//               <MenuItem value={false}>Inactive</MenuItem>
-//             </Select>
-//           </FormControl>
-//           <Button variant="text" sx={{ ml: 'auto', mr: 2, textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>+Add new slot</Button>
-//         </Box>
-//         <Table sx={{ minWidth: 500 }} aria-label="customized table">
-//           <TableHead>
-//             <TableRow >
-//               <StyledTableCell sx={{ fontSize: 17 }}>Slot ID</StyledTableCell>
-//               <StyledTableCell align="left" sx={{ fontSize: 17 }}>Slot name</StyledTableCell>
-//               <StyledTableCell align="left" sx={{ fontSize: 17 }}>Status</StyledTableCell>
-//               <StyledTableCell align="left" sx={{ fontSize: 17 }}>Action</StyledTableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-
-
-
-// {(parkingSlotNames[indexOfParking][indexParkingFloor].map((row, index) => (
-//               <StyledTableRow key={row}>
-//                 <StyledTableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-//                   {/* <Link href='/parkingArea' style={{ textDecoration: 'none', color: 'black' }}>{row.slotId}</Link> */}
-//                   {/* {row.slotId} */}
-//                   {/* ID{index + indexParkingFloor + indexParkingFloor} */}
-//                   ID{index}
-//                 </StyledTableCell>
-//                 <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row}</StyledTableCell>
-//                 <StyledTableCell align="left">
-//                   <Box sx={{ width: 200 }}>
-//                     {redOrBlack(result[indexParkingFloor][index])}
-//                     {/* <CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} /> */}
-//                     <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5 }} >
-//                       {/* {slotStatus[indexParkingFloor + index + indexParkingFloor]} */}
-//                       {/* {updatedSlotStatus[indexParkingFloor][index]} */}
-//                       {result[indexParkingFloor][index]}
-//                     </Typography>
-//                   </Box>
-//                 </StyledTableCell>
-//                 <StyledTableCell align="left">
-//                   {result[indexParkingFloor][index] ==='Active' ? (<Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>) : null}
-//                 </StyledTableCell>
-//               </StyledTableRow>
-//             )))}
+              <StyledTableRow key={row}>
+                <StyledTableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+                  {/* <Link href='/parkingArea' style={{ textDecoration: 'none', color: 'black' }}>{row.slotId}</Link> */}
+                  {/* {row.slotId} */}
+                  {/* ID{index + indexParkingFloor + indexParkingFloor} */}
+                  ID{index}
+                </StyledTableCell>
+                <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row}</StyledTableCell>
+                <StyledTableCell align="left">
+                  <Box sx={{ width: 200 }}>
+                    {redOrBlack(result[indexParkingFloor][index])}
+                    {/* <CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} /> */}
+                    <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5 }} >
+                      {/* {slotStatus[indexParkingFloor + index + indexParkingFloor]} */}
+                      {/* {updatedSlotStatus[indexParkingFloor][index]} */}
+                      {result[indexParkingFloor][index]}
+                    </Typography>
+                  </Box>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  {result[indexParkingFloor][index] ==='Active' ? (<Button variant="text" sx={{ textDecoration: 'underline', color: '#5BADFA', fontSize: 17 }}>Delete</Button>) : null}
+                </StyledTableCell>
+              </StyledTableRow>
+            )))}
         
 
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//     </AccordionDetails>
-//   </Accordion>))
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </AccordionDetails>
+  </Accordion>))
 
 
   return (
@@ -458,7 +459,7 @@ let iterateParkingSlots = (typeof (parkingSlotNames[indexOfParking]) !== "undefi
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', ml: 2 }}>
             <Box sx={{ width: 100 }}>
-              {parkingAreaStatus[indexOfParking] === "Inactive" ? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)}
+              {parkingAreaStatus[indexOfParking] === "Inactive" ? (<CircleIcon sx={{ fontSize: 10, color: '#FF0000', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)}
               <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5, color: 'grey' }} gutterBottom>
                 {/* {selected ? "Inactive" : "Active"} */}
                 {parkingAreaStatus[indexOfParking]}

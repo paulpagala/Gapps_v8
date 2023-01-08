@@ -112,9 +112,22 @@ const StyledMenu = styled((props) => (
 
 export default function ParkingDashboard() {
 
-  const { parkingAreaName, parkingAreaAddress, calendarRestriction, checkInOptions, earliestDateRestriction, cancellationRestriction, RTE, bookingStart, bookingEnd, paymentRestriction, setParkingStatus,parkingStatus,setParkingAreaStatus} = useGlobalContext()
+  const { parkingAreaName, parkingAreaAddress, parkingAreaFloor, parkingAreaSlots, parkingSlotNames, calendarRestriction, checkInOptions, earliestDateRestriction, cancellationRestriction, RTE, bookingStart, bookingEnd, paymentRestriction, setParkingStatus, parkingStatus, setParkingAreaStatus } = useGlobalContext()
   const router = useRouter();
   const week = [1, 2, 3, 4, 5]
+  
+  async function patchParkingStatus(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
   // const [selected, setSelected] = React.useState(false);
   // const [selectedParking, setSelectedParking] = React.useState(false);
   const [value, setValue] = React.useState(0);
@@ -162,27 +175,29 @@ export default function ParkingDashboard() {
     return { parkingAreaName, address, status, action };
   }
 
-  const rows = [];
-  const [activeArray,setActiveArray] = React.useState(Array.from(Array(parkingAreaName.length), () => "Active"));
-  const [parkingSelected,setParkingSelected]=React.useState(Array.from(Array(parkingAreaName.length), () => false))
- 
+  // const rows = [];
+  // const [rows,setRows] = React.useState(Array.from(Array(parkingAreaName.length), (_,i) => createData(parkingAreaName[i], parkingAreaAddress[i], activeArray[i], 'pj')))
+  const [activeArray, setActiveArray] = React.useState(Array.from(Array(parkingAreaName.length), () => "Active"));
+  const [parkingSelected, setParkingSelected] = React.useState(Array.from(Array(parkingAreaName.length), () => false))
+  const [rows,setRows] = React.useState(Array.from(Array(parkingAreaName.length), (_,i) => createData(parkingAreaName[i], parkingAreaAddress[i], activeArray[i], 'pj')))
+
   const changeToInactive = (e) => {
     // Map over the parkingSelected array and toggle the value at index `e`
-    const newParkingAreaStatus = parkingSelected.map((status, index) => 
+    const newParkingAreaStatus = parkingSelected.map((status, index) =>
       index === e ? !status : status
     );
     // Update the parkingSelected state with the new array
     setParkingSelected(newParkingAreaStatus);
-  
+
     // Map over the activeArray array and update the value at index `e` based on the value in newParkingAreaStatus
-    const newStatusList = activeArray.map((status, index) => 
+    const newStatusList = activeArray.map((status, index) =>
       newParkingAreaStatus[index] ? "Inactive" : "Active"
     );
     // Update the activeArray state with the new array
     setActiveArray(newStatusList);
     // setParkingAreaStatus(newStatusList)
     setParkingAreaStatus(newStatusList);
-    
+
 
     (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
       patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
@@ -196,11 +211,11 @@ export default function ParkingDashboard() {
           console.log(data); // JSON data parsed by `data.json()` call
         }))))))))
   }
-  
+
   // const bookedRow = [] 
-  for (let i = 0; i < parkingAreaName.length; i++) {
-    rows.push(createData(parkingAreaName[i], parkingAreaAddress[i], activeArray[i], 'pj'));
-  }
+  // for (let i = 0; i < parkingAreaName.length; i++) {
+  //   rows.push(createData(parkingAreaName[i], parkingAreaAddress[i], activeArray[i], 'pj'));
+  // }
 
   // useEffect(()=>{changeToInactive()},[])
 
@@ -223,7 +238,7 @@ export default function ParkingDashboard() {
   }
   const array = []
   const timeArray = ['7:00AM',
-     '12:30 AM',
+    '12:30 AM',
     '1:00 AM',
     '1:30 AM',
     '2:00 AM',
@@ -270,7 +285,7 @@ export default function ParkingDashboard() {
     '11:00 PM',
     '11:30 PM',
     '12:00 AM',]
-     for (let i = 0; i <= 47; i++) {
+  for (let i = 0; i <= 47; i++) {
     // Add each number to the array
     array.push(i);
   }
@@ -289,19 +304,7 @@ export default function ParkingDashboard() {
   ))
 
 
-  async function patchParkingStatus(url = '', data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
- 
+
   // function sendParkingStatus() {
   //   week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
   //     patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
@@ -315,17 +318,26 @@ export default function ParkingDashboard() {
   //         console.log(data); // JSON data parsed by `data.json()` call
   //       })))))))
   // }
-useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
-  patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
+
+
+  useEffect(() => {
     {
-      "parkingArea": parkingArea,
-      "calendarRestriction": day + week,
-      "updateKey": "parkingStatus",
-      "updateValue": !parkingStatus
-    })
-    .then((data) => {
-      console.log(data); // JSON data parsed by `data.json()` call
-    })))))))):null}},[parkingStatus])
+      !parkingStatus ? (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
+        patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
+          {
+            "parkingArea": parkingArea,
+            "calendarRestriction": day + week,
+            "updateKey": "parkingStatus",
+            "updateValue": !parkingStatus
+          })
+          .then((data) => {
+            console.log(data); // JSON data parsed by `data.json()` call
+          })))))))) : null
+    }
+  }, [parkingStatus])
+
+
+
   // {!parkingStatus ? (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (parkingAreaName.map((parkingArea, index) => (
   //   patchParkingStatus('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
   //     {
@@ -342,7 +354,7 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
   // const theme = useTheme();
   // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
- 
+
   // const handleCloseDialog = () => {
   //   setSelected(false);
   // };
@@ -352,7 +364,97 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
   // console.log(parkingStatus)
   // console.log(bookingStart,bookingEnd)
 
-// console.log(activeArray)
+  // console.log(activeArray)
+  async function deleteParking(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+  const deleteParkingArea = (area) => {
+    
+    (week.map((week, weekIndex) => (calendarRestriction.map((day, dayIndex) => (
+      deleteParking('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingarea',
+        {
+          "parkingArea": parkingAreaName[area],
+          "calendarRestriction": day + week,
+        })
+        .then((data) => {
+          console.log(data); // JSON data parsed by `data.json()` call
+        }))))))
+    
+    parkingAreaName.splice(area , 1);
+    parkingAreaAddress.splice(area , 1);
+    parkingAreaFloor.splice(area , 1);
+    parkingAreaSlots.splice(area , 1);
+    parkingSlotNames.splice(area , 1);
+    const newRows =[...rows]
+    newRows.splice(area,1);
+    setRows(newRows)
+   
+   
+    
+    // setNewParkingArea(newParkingArea.filter(areaparking => areaparking !== area))
+  }
+  // console.log(rows)
+
+  let tableCells =  rows.map((row, rowIndex) => (
+
+    <StyledTableRow key={row.parkingAreaName}>
+      <StyledTableCell component="th" scope="row" >
+        {activeArray[rowIndex] === "Active" ?
+          <Button style={{ textDecoration: 'none', color: 'black', fontSize: 16 }} onClick={() => routeToParkingArea(row.parkingAreaName)}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Button>
+          :
+          <Typography sx={{ ml: 1.9, fontSize: 16, letterSpacing: 0.5 }}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Typography>
+        }
+
+      </StyledTableCell>
+      {row.address ?
+        (<StyledTableCell align="left" sx={{ fontSize: 16 }}>{row.address}</StyledTableCell>) :
+        (<StyledTableCell sx={{ fontStyle: 'italic' }}>Not specified</StyledTableCell>)}
+      {/* <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row.address ? row.address : "Not specified"}</StyledTableCell> */}
+      <StyledTableCell align="left">
+        <Box sx={{ width: 100 }}>
+          {!parkingStatus ? (activeArray[rowIndex] === "Inactive" ? (<CircleIcon sx={{ fontSize: 10, color: '#FF0000', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)) : (<CircleIcon sx={{ fontSize: 10, color: '#FF0000', mt: 1 }} />)}
+          <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5, color: 'grey' }} gutterBottom>
+            {/* {!parkingStatus?(selectedParking ? "Inactive" : "Active"):"Inactive"} */}
+            {!parkingStatus ? activeArray[rowIndex] : "Inactive"}
+            {/* {activeArray[rowIndex]} */}
+            {/* {selectedParking ? "Inactive" : "Active"} */}
+          </Typography>
+        </Box>
+      </StyledTableCell>
+      <StyledTableCell align="left">
+        <ToggleButton
+          value="check"
+          // selected={selectedParking}
+          selected={parkingSelected[rowIndex]}
+          // onChange={() => {
+          //   // setSelectedParking(!selectedParking);
+          //   changeToInactive(rowIndex)
+          // }}
+          onClick={() => { changeToInactive(rowIndex) }}
+          sx={{ borderWidth: 0 }}
+        >
+          <Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>
+        </ToggleButton>
+        <Button
+          sx={{ borderWidth: 0 }}
+          onClick={() => deleteParkingArea(rowIndex)}
+        >
+          <Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Delete</Typography>
+        </Button>
+      </StyledTableCell>
+    </StyledTableRow>
+
+  ))
+ 
 
   return (
     <React.Fragment>
@@ -373,7 +475,7 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
               // onClick={parkingStatus?sendParkingStatus:null}
               sx={{ ml: 'auto', borderColor: '#61B6EC' }}
             >
-              {parkingStatus ? (<Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to active</Typography>) : (<Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>) }
+              {parkingStatus ? (<Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to active</Typography>) : (<Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>)}
             </ToggleButton>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', ml: 20 }}>
@@ -389,7 +491,7 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', ml: 20 }}>
             <Box sx={{ width: 100 }}>
-              {parkingStatus ? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)}
+              {parkingStatus ? (<CircleIcon sx={{ fontSize: 10, color: '#FF0000', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)}
               <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5, color: 'grey' }} gutterBottom>
                 {parkingStatus ? "Inactive" : "Active"}
               </Typography>
@@ -412,8 +514,8 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
       </Box>
 
       <TabPanel value={value} index={0}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', ml: '5%', alignItems: 'center' }}>
-          <Typography sx={{ color: 'black' }}>Filter by:</Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'row', ml: '5%', alignItems: 'center',justifyContent: 'space-between' }}>
+          {/* <Typography sx={{ color: 'black' }}>Filter by:</Typography>
           <FormControl sx={{ my: 2, ml: 3.5, minWidth: '120px', backgroundColor: 'white' }}>
             <InputLabel id="demo-simple-select-label">Status</InputLabel>
             <Select
@@ -426,7 +528,8 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
               <MenuItem value={true}>Active</MenuItem>
               <MenuItem value={false}>Inactive</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
+          <div></div>
           <Box sx={{ ml: 'auto', mr: '4%' }}>
             <Button
               id="demo-customized-button"
@@ -454,14 +557,14 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
                 <ListIcon />
                 List manually
               </MenuItem>
-              <MenuItem onClick={handleClose} disableRipple>
+              {/* <MenuItem onClick={handleClose} disableRipple>
                 <UploadIcon />
                 Bulk upload
-              </MenuItem>
+              </MenuItem> */}
             </StyledMenu>
           </Box>
         </Box>
-        <TableContainer sx={{ width: '93%', margin: 'auto' }} component={Paper}>
+        <TableContainer sx={{ width: '93%', margin: 'auto',mt:2 }} component={Paper}>
           <Table sx={{ minWidth: 500 }} aria-label="customized table">
             <TableHead>
               <TableRow >
@@ -472,55 +575,7 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row,rowIndex) => (
-
-                <StyledTableRow key={row.parkingAreaName}>
-                  <StyledTableCell component="th" scope="row" >
-                    {activeArray[rowIndex] === "Active" ?
-                    <Button style={{ textDecoration: 'none', color: 'black', fontSize:16 }} onClick={() => routeToParkingArea(row.parkingAreaName)}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Button>
-                    :
-                    <Typography sx={{ml:1.9, fontSize:16,letterSpacing: 0.5}}>{row.parkingAreaName ? row.parkingAreaName : "Not Specified"}</Typography>
-                    }
-                    
-                  </StyledTableCell>
-                  {row.address ?
-                    (<StyledTableCell align="left" sx={{ fontSize: 16 }}>{row.address}</StyledTableCell>) :
-                    (<StyledTableCell sx={{ fontStyle: 'italic' }}>Not specified</StyledTableCell>)}
-                  {/* <StyledTableCell align="left" sx={{ fontSize: 16 }}>{row.address ? row.address : "Not specified"}</StyledTableCell> */}
-                  <StyledTableCell align="left">
-                    <Box sx={{ width: 100 }}>
-                      {!parkingStatus?(activeArray[rowIndex]==="Inactive"? (<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />) : (<CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />)):(<CircleIcon sx={{ fontSize: 10, color: 'grey', mt: 1 }} />)}
-                      <Typography component="subtitle1" variant="subtitle1" sx={{ ml: 0.5, color: 'grey' }} gutterBottom>
-                      {/* {!parkingStatus?(selectedParking ? "Inactive" : "Active"):"Inactive"} */}
-                      {!parkingStatus?activeArray[rowIndex]:"Inactive"}
-                      {/* {activeArray[rowIndex]} */}
-                        {/* {selectedParking ? "Inactive" : "Active"} */}
-                      </Typography>
-                    </Box>
-                  </StyledTableCell>
-                  <StyledTableCell align="left">
-                    <ToggleButton
-                      value="check"
-                      // selected={selectedParking}
-                      selected={parkingSelected[rowIndex]}
-                      // onChange={() => {
-                      //   // setSelectedParking(!selectedParking);
-                      //   changeToInactive(rowIndex)
-                      // }}
-                      onClick={()=>{changeToInactive(rowIndex)}}
-                      sx={{ borderWidth: 0 }}
-                    >
-                      <Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Switch to inactive</Typography>
-                    </ToggleButton>
-                    <Button
-                      sx={{ borderWidth: 0 }}
-                    >
-                      <Typography sx={{ color: "#61B6EC", fontSize: 17 }}>Delete</Typography>
-                    </Button>
-                  </StyledTableCell>
-                </StyledTableRow>
-
-              ))}
+             {tableCells}
             </TableBody>
           </Table>
         </TableContainer>
@@ -566,19 +621,19 @@ useEffect(()=>{{!parkingStatus ? (week.map((week, weekIndex) => (calendarRestric
         </Paper>
       </TabPanel>
 
-      <Image src={parkingdashboard_image_source} alt="success_logo" width={500} style={{ position: 'relative', marginLeft: "74%", paddingTop: '3%',backgroundColor:'transparent'}} />
-      {parkingStatus ? ((<QuestionModal 
-      title="Switch Parking service to inactive?" 
-      body="Making this service inactive will automatically disable all parking areas" 
-      status={parkingStatus} 
-      successTitle='Service set up complete!' 
-      successBody='You may now start managing the service you just finished setting up'
-      />)): null}
-      
-      
+      <Image src={parkingdashboard_image_source} alt="success_logo" width={500} style={{ position: 'relative', marginLeft: "74%", paddingTop: '3%', backgroundColor: 'transparent' }} />
+      {parkingStatus ? ((<QuestionModal
+        title="Switch Parking service to inactive?"
+        body="Making this service inactive will automatically disable all parking areas"
+        status={parkingStatus}
+        successTitle='Service set up complete!'
+        successBody='You may now start managing the service you just finished setting up'
+      />)) : null}
 
 
-        
+
+
+
 
     </React.Fragment>
 
