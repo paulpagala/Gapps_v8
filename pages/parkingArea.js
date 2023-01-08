@@ -148,8 +148,11 @@ export default function ParkingArea() {
     fetch('https://zh66xn42vk.execute-api.ap-southeast-1.amazonaws.com/stage/parkingareas', options)
       .then((response) => response.json())
       .then((response) => {
-       {weekOnCalendar ? setSlotApi(response.ParkingAreas.filter(area => area.calendarRestriction === day+weekOnCalendar)[indexOfParking].slots) : setSlotApi(response.ParkingAreas.filter(area => area.calendarRestriction === presentDay+presentWeek)[indexOfParking].slots)}
+        const filteredBody= response.ParkingAreas.filter(area => area.calendarRestriction === day+weekOnCalendar)
+        const parkingIndex = filteredBody.findIndex(obj=>obj.parkingArea === props.index)
+       {weekOnCalendar ? setSlotApi(response.ParkingAreas.filter(area => area.calendarRestriction === day+weekOnCalendar)[parkingIndex].slots) : setSlotApi(response.ParkingAreas.filter(area => area.calendarRestriction === presentDay+presentWeek)[parkingIndex].slots)}
         // setSlotApi(response.ParkingAreas.filter(area => area.calendarRestriction === day+weekOnCalendar)[indexOfParking].slots)
+        // console.log(response.ParkingAreas.filter(area => area.calendarRestriction === day+weekOnCalendar))
        
       })
       .catch(() => {
