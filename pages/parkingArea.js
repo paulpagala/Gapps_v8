@@ -182,7 +182,8 @@ export default function ParkingArea() {
   // if(parkingSlot.length >0){
     {}
     // const totalSlots = parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0) 
-    {typeof (parkingAreaSlots[indexOfParking]) !== "undefined" ?  setTotalSlots(parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}
+    useEffect(()=>{{typeof (parkingAreaSlots[indexOfParking]) !== "undefined" ?  setTotalSlots(parkingAreaSlots[indexOfParking].reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0)) : setTotalSlots(0)}},[])
+    
   // }
 
   
@@ -227,6 +228,7 @@ export default function ParkingArea() {
       return <CircleIcon sx={{ fontSize: 10, color: '#00DE9A', mt: 1 }} />
     }
   }
+  
 let iterateParkingSlots = (typeof (parkingSlotNames[indexOfParking]) !== "undefined"?(typeof (parkingSlotNames[indexOfParking][indexParkingFloor]) !=="undefined"?(parkingAreaFloor[indexOfParking].map((parkingfloor, indexParkingFloor) =>
 
 (<Accordion defaultExpanded key={indexParkingFloor}>
